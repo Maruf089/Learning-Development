@@ -16,6 +16,31 @@ public class Main {
           return;
         }
       }
+
+      // another solution
+      
+      int [] freq = new int[60];
+      for(char ch : input.toCharArray()){
+        if(ch==' ') continue;
+        if(ch>='A' &&  ch<='Z') freq[ch-'A']++;
+        else  freq[ch-'a' + 26]++;
+      }
+      for(char ch : input.toCharArray()){
+        if(ch==' ') continue;
+        if(ch>='A' &&  ch<='Z') {
+          if(freq[ch-'A']==1){
+            System.out.println(ch);
+           return;
+          }
+        }
+        else {
+          if(freq[ch-'a' + 26]==1){
+            System.out.println(ch);
+           return;
+          }
+        }
+      }
+      
       
   }
 }
