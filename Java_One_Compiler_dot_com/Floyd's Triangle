@@ -1,0 +1,33 @@
+Write a program to print Floyd's triangle
+Max Score: 5 | Difficulty: Not Specified
+Floyd's triangle is a right-angled triangular array of natural numbers.
+Read the number of rows as input and print the Floyd's triangle of numbers.
+
+Example input:
+3
+Example output:
+1
+2 3
+4 5 6
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+     Scanner sc = new Scanner(System.in);
+
+        int rows = sc.nextInt();
+
+        int num = 1; // starting number
+
+        for (int i = 1; i <= rows; i++) {
+            for (int j = 1; j < i; j++) {
+                System.out.print(num + " ");
+                num++;
+            }
+            System.out.println(num);
+                num++;
+        }
+
+  }
+}
