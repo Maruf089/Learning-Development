@@ -1,0 +1,31 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+      Scanner sc = new Scanner(System.in);
+      String input = sc.nextLine();
+      
+      LinkedHashMap<Character,Integer>freq = new LinkedHashMap<>();
+      for(char c : input.toCharArray()){
+        if(c==' ') continue;
+        freq.put(c , freq.getOrDefault(c , 0) + 1);
+      }
+      for(Map.Entry<Character,Integer> entry : freq.entrySet()){
+        if(entry.getValue()==1){
+          System.out.println(entry.getKey());
+          return;
+        }
+      }
+      
+  }
+}
+
+First non-repeated character from a string
+Max Score: 3 | Difficulty: Not Specified
+Read a string from the input (which may contain repeated characters) and print the first non-repeated character from that string as output.
+
+Example input:
+HI HILARY
+Example output:
+L
+
