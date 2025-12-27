@@ -1,0 +1,54 @@
+
+Permutations of a given string
+Max Score: 10 | Difficulty: Not Specified
+Write a program to print all the permutations of a given string.
+
+A String of n characters can have !n (factorial of n) permutations. For example a String of 3 characters like "xyz" has 6 possible permutations xyz, xzy, yxz, yzx, zxy, zyx.
+
+Note: The results have to be one word per line and they should be in a sorted order alphabetically.
+
+Example input:
+ok
+Example output:
+ko
+ok
+
+
+
+import java.util.*;
+
+public class Main {
+    static List<String> res = new ArrayList<>();
+    static void permutation(char [] chars ,int index){
+      if(index==chars.length){
+        res.add(new String(chars));
+        return;
+      }
+      for(int i=index;i<chars.length;i++){
+        swap(chars,index, i);
+        permutation(chars,index+1);
+        swap(chars,index, i);
+      }
+      
+    }
+    
+    static void swap(char[] chars,int i, int j ){
+      char temp = chars[i];
+      chars[i] = chars[j];
+      chars[j] = temp;
+    }
+    
+    public static void main(String[] args) {
+      Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+        
+      char [] chars = input.toCharArray();
+      
+      permutation(chars , 0);
+      
+      Collections.sort(res);
+      for(String s : res) System.out.println(s);
+      
+      
+  }
+}
