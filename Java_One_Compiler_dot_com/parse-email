@@ -1,0 +1,33 @@
+Parse Email
+Max Score: 8 | Difficulty: Not Specified
+Read an email address from the input and parse the name and the domain from it and greet the user and welcome to the company.
+For example if the provided input as sara@alphabet.com, Your output should be Hi Sara, Welcome to Alphabet. Output should have first letter of user name and company name as a capital letter.
+
+Note: Domain extentention may not be .com always.
+
+Example input:
+sara@alphabet.com
+Example output:
+Hi Sara, Welcome to Alphabet
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+      Scanner sc = new Scanner(System.in);
+        String email = sc.nextLine();
+        String [] parts = email.split("@");
+        String name = parts[0];
+        System.out.print("Hi " + name.substring(0,1).toUpperCase() + name.substring(1) + ", Welcome to ");
+        String company = "";
+        for(Character ch : parts[1].toCharArray()){
+          if(ch=='.') break;
+          if(company.isEmpty()){
+            company += Character.toUpperCase(ch);
+          }
+          else company += ch;
+        }
+        System.out.println(company);
+        
+  }
+}
