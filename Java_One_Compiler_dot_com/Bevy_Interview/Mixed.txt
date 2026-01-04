@@ -5,6 +5,14 @@ owning services end-to-end, designing APIs, improving performance and reliabilit
 being accountable in production. I’m confident in Spring Boot + microservices patterns, and I’m comfortable debugging and operating services under real constraints.”
 
 
+
+
+
+
+
+
+
+
 ConfigurationProperties annotation is used to bind the external configuration properties from application properties or application.yml file to a Java object. It allows you to map hierarchical properties to a POJO (Plain Old Java Object) class, making it easier to manage and access configuration values in a type-safe manner.
 
 Value annotation is used to inject a specific property value from the application properties or application.yml file directly without the need to create a separate POJO class for binding.
@@ -22,9 +30,22 @@ private String appName;
 In summary, ConfigurationProperties is used for binding multiple related properties to a POJO, while Value is used for injecting individual property values directly into fields.
 
 
+
+
+
+
+
+
+
+
+
 @Lookup annotation is used in Spring to perform method injection, allowing you to dynamically override a method to return a different bean instance at runtime. It is particularly useful when you need to inject prototype-scoped beans into singleton-scoped beans.
 
 When a method is annotated with @Lookup, Spring overrides that method to return a new instance of the specified bean each time it is called, rather than returning the same instance. This is especially helpful when you want to ensure that a new instance of a prototype bean is provided whenever the method is invoked, even if the containing bean is a singleton.
+
+
+
+
 
 
 Stream API in Java provides a functional approach to process sequences of elements (like collections) in a declarative way. It allows you to perform operations such as filtering, mapping, and reducing on data in a concise and readable manner.
@@ -43,7 +64,13 @@ In this example, we create a stream from a list of names, filter the names that 
 Stream is not resuable; once a terminal operation is performed, the stream is considered consumed and cannot be used again. To perform multiple operations, you need to create a new stream from the source data each time.
 
 
+
+
+
+
+
 When we need to make a bean immutable?
+
 One case is appName and appVersion which we generally set in application.properties file and we don't want them to be changed during runtime so in that case we can make those beans immutable by using @ConfigurationProperties with final fields and no setters.
 Example:  
 @ConfigurationProperties(prefix = "app")
@@ -67,22 +94,38 @@ public class AppConfig {
 
 
 
-RefreshScope in Spring Boot is used to define beans that can be reloaded or refreshed at runtime without restarting the entire application. This is particularly useful in cloud-native applications where configuration properties may change dynamically, and you want to update the bean instances with the new configuration values without downtime.
+RefreshScope in Spring Boot :
+
+is used to define beans that can be reloaded or refreshed at runtime without restarting the entire application. This is particularly useful in cloud-native applications where configuration properties may change dynamically, and you want to update the bean instances with the new configuration values without downtime.
 
 When a bean is annotated with @RefreshScope, Spring creates a proxy for that bean. When the refresh event is triggered (for example, by calling the /actuator/refresh endpoint), Spring will recreate the bean instance with the updated configuration values.
 
+
+
+
+
 Can I create object os abstract class in java?
+
 No, you cannot create an object of an abstract class in Java. An abstract class is a class that is declared with the abstract keyword and may contain abstract methods (without implementation) and concrete methods (with implementation)
 Abstract classes are meant to be subclassed, and they cannot be instantiated directly.
 constructor of abstract class is called when a subclass object is created.
 
+
+
+
+
 What is the difference between Checked and Unchecked Exceptions in Java?
+
 Checked Exceptions: 
 Checked exceptions are exceptions that are checked at compile-time. This means that the compiler requires you to handle these exceptions either by using a try-catch block or by declaring them in the method signature using the throws keyword. Examples of checked exceptions include IOException, SQLException, and ClassNotFoundException.
 Unchecked Exceptions:
 Unchecked exceptions, also known as runtime exceptions, are not checked at compile-time. These exceptions can occur during the execution of the program and do not require explicit handling. Examples of unchecked exceptions include NullPointerException, ArrayIndexOutOfBoundsException, and IllegalArgumentException.
 
+
+
+
 What is the difference between an Abstract Class and an Interface in Java?
+
 Abstract Class:
 An abstract class is a class that cannot be instantiated on its own and may contain both abstract methods (without implementation) and concrete methods (with implementation). Abstract classes are used to provide a common base for subclasses and can have member variables, constructors, and access modifiers. A class can extend only one abstract class (single inheritance).
 Interface:
@@ -180,3 +223,480 @@ class D : public B, public C {
         display(); // No ambiguity: Calls A's display() method
     }
 };
+
+
+Can Interface extend a class in Java?
+No, an interface cannot extend a class in Java. Interfaces can only extend other interfaces. 
+Example of interface extending another interface: 
+interface A {
+    void methodA();
+}
+interface B extends A {
+    void methodB();
+}
+class C implements B {
+    public void methodA() {
+        System.out.println("Method A implementation");
+    }
+    
+    public void methodB() {
+        System.out.println("Method B implementation");
+    }
+}
+
+Can a class implement multiple interfaces in Java?
+Yes, a class can implement multiple interfaces in Java. This is one of the ways Java achieves multiple inheritance. 
+
+
+Default methods in interfaces were introduced in Java 8 to provide a way to add new methods to interfaces without breaking the existing implementations of those interfaces. Default methods allow you to define a method with a default implementation directly in the interface, which implementing classes can either use as-is or override with their own implementation.
+Example:  
+interface MyInterface {
+    void existingMethod(); // Abstract method
+
+    default void newDefaultMethod() { // Default method
+        System.out.println("This is a default method.");
+    }
+} 
+class MyClass implements MyInterface {
+    public void existingMethod() {
+        System.out.println("Implementation of existing method.");
+    }
+}
+
+What is Functional Interface in Java?
+A functional interface in Java is an interface that contains exactly one abstract method. Functional interfaces are used as the basis for lambda expressions and method references in Java 8 and later versions. They provide a target type for lambda expressions, allowing you to pass behavior as parameters to methods or store them in variables.
+Example:
+@FunctionalInterface
+interface MyFunctionalInterface {
+    void execute(); // Single abstract method
+}
+class MyClass {
+    public void performAction(MyFunctionalInterface funcInterface) {
+        funcInterface.execute(); // Invoke the abstract method
+    }
+} 
+
+What is the difference between @Component, @Service, and @Repository annotations in Spring?
+
+@Component is a generic stereotype annotation used to indicate that a class is a Spring-managed component. It is a general-purpose annotation that can be used for any Spring bean. 
+@Service is a specialized stereotype annotation that indicates that a class is a service component in the service layer. It is used to denote business logic and service-related functionality.
+@Repository is another specialized stereotype annotation that indicates that a class is a data access component in the persistence layer. 
+
+What is the difference between @Controller and @RestController annotations in Spring MVC?
+@Controller is used to define a controller class that handles HTTP requests and returns views (like JSP, Thymeleaf) as responses. It is typically used in web applications that serve HTML content.
+@RestController is a specialized version of @Controller that is used to create RESTful web services. It combines @Controller and @ResponseBody, meaning that the methods in a @RestController return data (like JSON or XML) directly in the HTTP response body, rather than rendering a view.
+Example:  
+@RestController
+@RequestMapping("/api") 
+public class MyRestController {
+    @GetMapping("/data")
+    public List<String> getData() {
+        return Arrays.asList("Item1", "Item2", "Item3");
+    }
+}
+
+What is the difference between @Autowired and @Inject annotations in Spring?
+@Autowired is a Spring-specific annotation used for dependency injection. It can be applied to constructors, fields, and setter methods.
+@Inject is a standard annotation from the Java Dependency Injection (JSR-330) specification. It serves the same purpose as @Autowired but is not specific to Spring.
+Both annotations can be used for dependency injection in Spring, but @Autowired provides additional features like required attribute and support for Spring's specific features.
+
+What is the difference between @Qualifier and @Primary annotations in Spring?
+@Qualifier is used to resolve ambiguity when multiple beans of the same type are present in the Spring context. It allows you to specify which bean should be injected by providing a unique identifier.
+@Primary is used to designate a specific bean as the default choice when multiple beans of the same type are available.
+When a bean is marked with @Primary, it will be preferred for injection unless a specific @Qualifier is provided.
+Example:
+@Component
+@Primary
+class PrimaryService implements MyService {
+    // Implementation
+}
+@Component
+@Qualifier("secondaryService")  
+class SecondaryService implements MyService {
+    // Implementation
+}
+
+What is the difference between @Secured and @PreAuthorize annotations in Spring Security?
+@PreAuthorize is the newer and better choice over @Secured because it supports expression-based access control. With @PreAuthorize, you can use expressions like hasRole, hasAnyRole, permitAll, and more, providing greater flexibility in defining security rules.
+@Secured is more limited as it only allows you to specify roles directly without the ability to use complex expressions.
+Example:
+@PreAuthorize("hasRole('ADMIN')") 
+public void adminMethod() {
+    // Method accessible only to users with ADMIN role
+}
+@Secured("ROLE_ADMIN")
+public void adminMethod() {
+    // Method accessible only to users with ADMIN role
+}
+
+Multiple Interfaces have same default method how to resolve that?
+When a class implements multiple interfaces that contain the same default method, you must override the conflicting method in the implementing class to resolve the ambiguity. You can provide your own implementation or explicitly specify which interface's default method to use by using the InterfaceName.super.methodName() syntax.
+Example:
+interface A {   
+    default void display() {
+        System.out.println("Interface A");
+    }
+}
+interface B {
+    default void display() {
+        System.out.println("Interface B");
+    }
+}
+class C implements A, B {
+    @Override
+    public void display() {
+        A.super.display(); // Call to Interface A's default method
+        B.super.display(); // Call to Interface B's default method
+        System.out.println("Class C");
+    }
+}
+
+
+
+Employee.stream().collect(Collectors.groupingBy(Employee::getDepartment, Collectors.maxBy(Comparator.comparing(Employee::getSalary))));
+
+employee sorted by salary desc and then find first
+Employee.stream().sorted(Comparator.comparing(Employee::getSalary).reversed()).findFirst();
+
+Employee.stream().collect(Collectors.groupingBy(Employee::getDepartment, Collectors.toList()));
+Employee.stream().collect(Collectors.groupingBy(Employee::getDepartment, Collectors.minBy(Comparator.comparing(Employee::getSalary))));
+Employee.stream().collect(Collectors.groupingBy(Employee::getDepartment, Collectors.summingDouble(Employee::getSalary)));
+
+
+Update configuration properties at runtime in spring boot:
+You can use Spring Cloud Config along with the @RefreshScope annotation to update configuration properties at runtime. When a property is changed in the configuration server, you can trigger a refresh event (e.g., by calling the /actuator/refresh endpoint) to reload the properties in beans annotated with @RefreshScope without restarting the application.
+Example:
+@RefreshScope
+@Component
+@ConfigurationProperties(prefix = "app")
+public class AppConfig {
+    private String name;
+    private int timeout;
+    // getters and setters
+}
+
+
+Spring boot starter parent :
+is a special starter that provides default configurations for a Spring Boot application. It includes a set of dependencies and plugins that are commonly used in Spring Boot projects, making it easier to set up and manage the project.
+By using spring-boot-starter-parent as the parent in your Maven pom.xml file, you inherit a set of default configurations, such as dependency versions, plugin configurations, and build settings. This helps ensure compatibility between different Spring Boot components and reduces the need for manual configuration.
+Example:  
+<parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.5.4</version>
+    <relativePath/> <!-- lookup parent from repository -->
+</parent>
+
+
+Thread pool in java :
+A thread pool in Java is a collection of pre-instantiated threads that are ready to execute tasks. Instead of creating a new thread for each task, which can be resource-intensive and time-consuming, a thread pool allows you to reuse existing threads to handle multiple tasks. This improves performance and resource management in concurrent applications.
+Java provides the Executor framework, which includes classes like ThreadPoolExecutor and Executors, to create and manage thread pools easily.
+Example:    
+ExecutorService executorService = Executors.newFixedThreadPool(10); // Create a thread pool with 10 threads
+for (int i = 0; i < 20; i++) {
+    final int taskId = i;
+    executorService.submit(() -> {
+        System.out.println("Executing task " + taskId + " by " + Thread.currentThread().getName());
+    });
+}   
+executorService.shutdown(); // Shutdown the executor service after task completion
+
+What is the difference between Runnable and Callable in Java?
+Runnable is an interface that represents a task that can be executed by a thread. It has a single method, run(), which does not return a value and cannot throw checked exceptions.
+Callable is a generic interface that represents a task that can be executed by a thread and can return a result. It has a single method, call(), which returns a value of type T and can throw checked exceptions.
+Example:  
+// Runnable example
+class MyRunnable implements Runnable {
+    @Override
+    public void run() {
+        System.out.println("Runnable task executed.");
+    }
+}
+// Callable example
+class MyCallable implements Callable<String> {
+    @Override
+    public String call() throws Exception {
+        return "Callable task executed.";
+    }
+}
+
+What is the difference between Synchronous and Asynchronous programming?
+Synchronous programming is a programming paradigm where tasks are executed sequentially, one after the other. Each task must complete before the next task begins, leading to potential blocking and delays if a task takes a long time to finish.
+Asynchronous programming, on the other hand, allows tasks to be executed independently. Tasks can start and complete at different times, enabling non-blocking operations.
+
+Thread lifecycle in Java:
+1. New: A thread is created but not yet started.
+2. Runnable: The thread is ready to run and is waiting for CPU time.
+3. Running: The thread is currently executing.
+4. Blocked/Waiting: The thread is waiting for a resource or event.
+5. Timed Waiting: The thread is waiting for a specified period.
+6. Terminated: The thread has completed its execution or has been stopped.
+7. Dead: The thread is no longer alive and cannot be restarted.
+Example:  
+Thread thread = new Thread(() -> {
+    System.out.println("Thread is running.");
+});
+thread.start(); // Moves thread to Runnable state
+
+What is the difference between Future and CompletableFuture in Java?
+Future is an interface that represents the result of an asynchronous computation. It provides methods to check if the computation is complete, to wait for its completion, and to retrieve the result. However, Future does not support chaining or combining multiple asynchronous tasks.
+CompletableFuture is a class that implements the Future interface and provides additional features for handling asynchronous computations. It supports chaining, combining, and composing multiple asynchronous tasks using methods like thenApply, thenCompose. CompletableFuture also allows for better error handling and provides a more flexible way to work with asynchronous programming in Java.
+Example:  
+// Future example 
+ExecutorService executor = Executors.newSingleThreadExecutor();
+Future<Integer> future = executor.submit(() -> {
+    Thread.sleep(1000);
+    return 42;
+});
+Integer result = future.get(); // Blocks until the result is available
+executor.shutdown();
+// CompletableFuture example
+CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(() -> {
+    try {
+        Thread.sleep(1000);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+    return 42;
+});
+completableFuture.thenAccept(result -> {
+    System.out.println("Result: " + result);
+});
+What is the difference between Process and Thread?
+A process is an independent program that runs in its own memory space and has its own resources, while a thread is a lightweight unit of execution within a process that shares the same memory space and resources of the process.
+Processes are isolated from each other, and communication between processes requires inter-process communication (IPC) mechanisms. Threads within the same process can communicate directly and share data more easily.
+
+What is the difference between HashMap and ConcurrentHashMap in Java?
+HashMap is not thread-safe and does not provide any synchronization mechanisms. It allows one thread to read and another to write simultaneously, which can lead to data inconsistency.
+ConcurrentHashMap is thread-safe and provides better performance in multi-threaded environments. It uses locking mechanism or other advanced techniques to allow multiple threads to access concurrently without blocking each other.
+Example:
+Map<String, String> hashMap = new HashMap<>();
+Map<String, String> concurrentHashMap = new ConcurrentHashMap<>();
+
+
+What is the difference between wait() and sleep() in Java?
+When a thread calls wait() on an object, it releases the lock on that object and enters a waiting state.
+sleep() does not release any locks it holds and simply pauses its execution for the given duration.
+
+Example:
+synchronized (obj) {
+    obj.wait(); // Releases lock and waits
+}   
+Thread.sleep(1000); // Pauses execution for 1 second
+// wait() example
+
+
+Which annotation is used to scan beans in Spring Boot application?
+@SpringBootApplication is used to scan beans in a Spring Boot application. It is a convenience annotation that combines @Configuration, @EnableAutoConfiguration, and @ComponentScan annotations. The @ComponentScan part of the annotation enables component scanning, allowing Spring to automatically discover and register beans (components, services, repositories, etc.) in the specified package and its sub-packages.
+Example:  
+@SpringBootApplication
+public class MySpringBootApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(MySpringBootApplication.class, args);
+    }
+}
+
+Field Injection vs Constructor Injection in Spring:
+Field Injection:
+Field injection involves using the @Autowired annotation directly on the fields of a class to inject dependencies.
+Constructor Injection:
+Constructor injection involves injecting dependencies through the constructor of a class. 
+Example:  
+// Field Injection
+@Component
+class MyService {
+    @Autowired
+    private MyRepository myRepository;
+    // ...
+}
+// Constructor Injection
+@Component
+class MyService {
+    private final MyRepository myRepository;
+
+    @Autowired
+    public MyService(MyRepository myRepository) {
+        this.myRepository = myRepository;
+    }
+    // ...
+}
+In general, constructor injection is preferred over field injection because it promotes immutability, makes dependencies explicit, and improves testability.
+
+What is the difference between @PathVariable and @RequestParam in Spring MVC?
+@PathVariable is used to extract values from the URI path. It is typically used when the value is part of the URL structure.
+@RequestParam is used to extract query parameters from the URL. It is typically used for optional parameters or when the value is not part of the URL structure.
+Example:  
+@GetMapping("/users/{id}")
+public User getUserById(@PathVariable("id") Long userId) {
+    // ...
+}
+@GetMapping("/users")
+public List<User> getUsersByRole(@RequestParam("role") String role) {
+    // ...
+}
+
+Java Util Date mutability issue:
+java.util.Date is mutable, meaning its internal state can be changed after it is created.
+To avoid mutability issues, it is recommended to use the java.time package (introduced in Java 8), which provides immutable date and time classes like LocalDate, LocalDateTime, and ZonedDateTime. These classes cannot be modified after creation, ensuring that their state remains consistent throughout their lifecycle.
+
+
+@EventListener annotation in Spring: 
+is used to mark a method as an event listener that listens for specific application events. When an event is published, the method annotated with @EventListener will be invoked automatically to handle the event.
+Example:
+@Component
+public class MyEventListener {
+    @EventListener
+    public void handleCustomEvent(CustomEvent event) {
+        System.out.println("Received custom event: " + event.getMessage());
+    }
+}
+publisher:
+@Component  
+public class MyEventPublisher {
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
+
+    public void publishEvent(String message) {
+        CustomEvent customEvent = new CustomEvent(this, message);
+        applicationEventPublisher.publishEvent(customEvent);
+    }
+}
+
+
+You should not mutate a element present in hash-based collection (like HashMap, HashSet) because it can lead to inconsistent behavior and make the collection unreliable. 
+When you mutate an element that is used as a key in a hash-based collection, it can change the hash code of the object, which affects its position in the collection. This can result in the inability to retrieve the object later, as the collection may not be able to locate it using the original hash code.For example, if you have a HashMap with a mutable key object and you change the state of that key object after it has been added to the map, the hash code of the key may change. As a result, when you try to retrieve the value associated with that key, the map may not be able to find it because it is looking for the key using its original hash code, which no longer matches the mutated key's hash code.To avoid such issues, it is recommended to use immutable objects as keys in hash-based collections. Immutable objects have a fixed state that cannot be changed after they are created, ensuring that their hash code remains consistent throughout their lifecycle.
+Example of mutable key issue: 
+class MutableKey {
+    private String key;
+
+    public MutableKey(String key) {
+        this.key = key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    @Override
+    public int hashCode() {
+        return key.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof MutableKey)) return false;
+        MutableKey other = (MutableKey) obj;
+        return key.equals(other.key);
+    }
+}
+Map<MutableKey, String> map = new HashMap<>();
+MutableKey key = new MutableKey("initialKey");
+map.put(key, "value1");
+key.setKey("modifiedKey"); // Mutating the key
+String value = map.get(new MutableKey("initialKey")); // This will return null
+
+What is the difference between String, StringBuilder, and StringBuffer in Java?
+String is an immutable class, meaning that once a String object is created, its value cannot be changed. Any modification to a String results in the creation of a new String object.
+StringBuilder is a mutable class that allows you to modify the contents of the string without creating new objects. It is not synchronized, making it faster for single-threaded operations.
+StringBuffer is also a mutable class like StringBuilder, but it is synchronized, making it thread-safe for multi-threaded operations. However, this synchronization comes with a performance cost compared to StringBuilder.
+Example:    
+String str = "Hello";
+str = str + " World"; // Creates a new String object
+StringBuilder stringBuilder = new StringBuilder("Hello");
+stringBuilder.append(" World"); // Modifies the existing StringBuilder object
+StringBuffer stringBuffer = new StringBuffer("Hello");
+stringBuffer.append(" World"); // Modifies the existing StringBuffer object
+
+
+Normal stream vs parallel stream in Java:
+Normal Stream:
+A normal stream processes elements sequentially, one after the other, in a single thread. It is suitable for small to moderate-sized datasets.
+Parallel Stream:
+A parallel stream divides the workload into multiple threads, allowing elements to be processed concurrently. It is suitable for large datasets and can improve performance by utilizing multiple CPU cores.Example:
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+// Normal Stream  
+List<Integer> normalStreamResult = numbers.stream()
+    .map(n -> n * 2)
+    .collect(Collectors.toList());
+// Parallel Stream  
+List<Integer> parallelStreamResult = numbers.parallelStream()
+    .map(n -> n * 2)
+    .collect(Collectors.toList());
+
+What is the difference between == operator and equals() method in Java?
+The == operator compares the references of two objects to check if they point to the same memory location
+, while the equals() method compares the actual content or state of the objects to determine if they are logically equivalent.
+Example:  
+String str1 = new String("Hello");
+String str2 = new String("Hello");  
+System.out.println(str1 == str2); // false, compares references
+System.out.println(str1.equals(str2)); // true, compares content
+
+What is your experience with microservices architecture and Spring Boot?
+“I have worked on several projects where we transitioned from a monolithic architecture to microservices using Spring Boot. I have designed and implemented RESTful APIs, managed inter-service communication using webclient. I am familiar with best practices for building scalable and resilient microservices, including circuit breakers, load balancing, and centralized configuration management. Additionally, I have experience with Docker and orchestration with docker dwarm to deploy multiple database instance in different host PC's. Overall, I have a solid understanding of microservices principles and patterns, and I’m comfortable working in a distributed systems.”
+
+
+WeakHashMap in Java:
+WeakHashMap is a special implementation of the Map interface in Java that uses weak references for its keys. This means that if a key in a WeakHashMap is no longer referenced elsewhere in the application, it can be garbage collected, even if it is still present in the map. This behavior is useful for caching scenarios where you want to allow keys to be automatically removed when they are no longer needed, helping to prevent memory leaks.
+Example:
+WeakHashMap<MyKey, MyValue> weakHashMap = new WeakHashMap<>();
+MyKey key = new MyKey("key1");
+MyValue value = new MyValue("value1");
+weakHashMap.put(key, value);  
+key = null; // Remove strong reference to the key
+System.gc(); // Suggest garbage collection
+// After garbage collection, the entry may be removed from the WeakHashMap if the key was garbage collected
+
+
+What is the use of @Lookup annotation in Spring?
+The @Lookup annotation in Spring is used to indicate that a method should return a new instance of a prototype-scoped bean each time it is called. This is particularly useful when you have a singleton-scoped bean that needs to inject a prototype-scoped bean, and you want to ensure that a new instance of the prototype bean is created for each method invocation.
+Example:  
+@Component
+class SingletonBean { 
+    @Lookup
+    public PrototypeBean getPrototypeBean() {
+        // Spring will override this method to return a new instance of PrototypeBean
+        return null;
+    }
+}
+
+Function Composition in Java:
+Function composition in Java refers to the process of combining two or more functions to create a new function. This is typically done using the Function interface from the java.util.function package, which provides methods like andThen() and compose() to facilitate function composition.
+Example:  
+Function<Integer, Integer> add2 = x -> x + 2;
+Function<Integer, Integer> multiply3 = x -> x * 3;  
+Function<Integer, Integer> addThenMultiply = add2.andThen(multiply3);
+int result = addThenMultiply.apply(5); // (5 + 2) * 3 = 21  
+Function<Integer, Integer> multiplyThenAdd = add2.compose(multiply3);
+int result2 = multiplyThenAdd.apply(5); // (5 * 3) + 2 = 17
+
+What is the difference between map() and flatMap() in Java Streams?
+map() is used to transform each element of a stream into another form by applying a function to each element. The result is a stream of the transformed elements.
+flatMap() is used to transform each element of a stream into a stream of other elements, and then flattens those streams into a single stream. It is typically used when the transformation function returns a stream or a collection.
+Example:
+List<String> words = Arrays.asList("Hello", "World");
+// Using map() to convert each word to uppercase  
+List<String> upperCaseWords = words.stream()
+    .map(String::toUpperCase)
+    .collect(Collectors.toList());
+
+// Using flatMap() to split each word into characters and flatten the result
+List<String> characters = words.stream()
+    .flatMap(word -> Arrays.stream(word.split("")))
+    .collect(Collectors.toList());
+
+
+Higher Order Functions in Java:
+Higher-order functions are functions that can take other functions as arguments or return functions as their result. In Java, higher-order functions can be implemented using functional interfaces and lambda expressions.
+Example:  
+// A higher-order function that takes a Function as an argument
+public static <T, R> List<R> transformList(List<T> list, Function<T, R> transformer) {
+    return list.stream()
+               .map(transformer)
+               .collect(Collectors.toList());
+} 
+// Usage:
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+List<Integer> squaredNumbers = transformList(numbers, n -> n * n); // [1, 4, 9, 16, 25]
+
