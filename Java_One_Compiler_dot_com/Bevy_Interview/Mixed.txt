@@ -700,3 +700,9 @@ public static <T, R> List<R> transformList(List<T> list, Function<T, R> transfor
 List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
 List<Integer> squaredNumbers = transformList(numbers, n -> n * n); // [1, 4, 9, 16, 25]
 
+4 pre defined functional interfaces in Java are:
+1. Function<T, R>: Represents a function that takes an argument of type T and returns a result of type R.
+2. Predicate<T>: Represents a boolean-valued function that takes an argument of type T and returns true or false.
+3. Consumer<T>: Represents a Consumer that takes an argument of type T and returns no result.
+4. Supplier<T>: Represents a supplier of results, providing a method that returns a result of type T without taking any arguments.
+
