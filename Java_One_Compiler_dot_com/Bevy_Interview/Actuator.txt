@@ -1,0 +1,10 @@
+ spring boot actuators will provide production ready feature so that you can monitor and manage your applications inside production it will give you a lot of endpoints that you can directly use in order to manage and monitor your application right so how to enable that you just need to add a dependency inside your pom.xml so spring boot starter actuator
+
+  let's say health check so if you click on health check it will show the health of your application that application is up or down right after that you have something called as beans so if you click on it in context you will see all the beans that are registered inside your application so all the beans you can see over here
+
+  many more features that you can use over here for example Heap dump thread dump which will come in handy when you need to debug something inside your production.
+
+
+  https://www.youtube.com/watch?v=7dWnrW3pNf0&list=PL61PaxtHbYMo9ZGgzp3mkRFINcpvGTSdF
+
+  70_1: Monitoring Applications | Spring Boot Actuator | Micrometer | Prometheus | Grafana | Docker

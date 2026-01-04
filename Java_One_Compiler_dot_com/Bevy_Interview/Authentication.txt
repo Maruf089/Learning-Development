@@ -1,0 +1,106 @@
+Authentication Flow Summary :
+  Request enters the filter chain.
+  UsernamePasswordAuthenticationFilter extracts credentials.
+  Filter delegates to AuthenticationManager.
+  AuthenticationManager calls each AuthenticationProvider.
+  A matching provider loads the user using UserDetailsService.
+  Password is verified via PasswordEncoder.
+  Successful Authentication is stored in SecurityContextHolder.
+  Subsequent requests use the stored context until cleared.
+
+https://docs.google.com/document/d/181jLVPQkhTGb7N6kgvfoZvKjS-VQAAeo-LYjijyRG0g/edit?tab=t.0
+
+
+BCryptPasswordEncoder : is a PasswordEncoder that uses the BCrypt strong hashing function to encode passwords. It provides a secure way to store passwords by hashing them, making it difficult for attackers to retrieve the original password even if they gain access to the stored hash.
+Key Features
+One-Way Hashing: Passwords are hashed and cannot be decoded back to their original plain-text form.
+Salted Hashing: Each password is hashed with a unique salt, enhancing security against rainbow table attacks.
+
+
+Authentication Flow Summary in Spring Boot with JWT:
+1. User sends credentials (username/password) to the authentication endpoint.
+2. The server validates the credentials and generates a JWT token.
+3. The server returns the JWT token to the client.
+4. The client stores the JWT token (e.g., in localStorage or sessionStorage or cookies).
+5. For subsequent requests, the client includes the JWT token in the Authorization header.
+6. The server validates the JWT token and extracts user information from it.
+7. The server processes the request based on user information extracted from the JWT token. 
+
+Key Components:
+- AuthenticationManager: Validates user credentials.
+- UserDetailsService: Loads user-specific data.
+- JWT Token Provider: Generates and validates JWT tokens.
+- Security Configuration: Configures security settings, including JWT filter and endpoint access rules.
+Example Code Snippet for JWT Authentication in Spring Boot:
+```java
+@RestController 
+@RequestMapping("/auth")
+public class AuthController {
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
+        Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
+        );
+
+        String token = jwtTokenProvider.generateToken(authentication);
+        return ResponseEntity.ok(new AuthResponse(token));
+    }
+} 
+```
+```java
+@Component
+public class JwtTokenProvider {
+
+    private String jwtSecret = "yourSecretKey";
+    private long jwtExpirationInMs = 3600000; // 1 hour 
+    public String generateToken(Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
+
+        return Jwts.builder()
+            .setSubject(userDetails.getUsername())
+            .setIssuedAt(new Date())
+            .setExpiration(expiryDate)
+            .signWith(SignatureAlgorithm.HS512, jwtSecret)
+            .compact();
+    }
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }   
+    public String getUsernameFromJWT(String token) {
+        Claims claims = Jwts.parser()
+            .setSigningKey(jwtSecret)
+            .parseClaimsJws(token)
+            .getBody();
+
+        return claims.getSubject();
+    }
+}
+```
+```java
+public class AuthRequest {
+    private String username;
+    private String password;
+    // getters and setters
+}
+public class AuthResponse {
+    private String token;
+    public AuthResponse(String token) {
+        this.token = token;
+    }
+    // getter
+}
+```

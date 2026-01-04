@@ -1,0 +1,182 @@
+A strong way to say it (use something like this)
+
+“I have 3 years of experience, but in that time I’ve consistently worked at a senior scope: 
+owning services end-to-end, designing APIs, improving performance and reliability, and 
+being accountable in production. I’m confident in Spring Boot + microservices patterns, and I’m comfortable debugging and operating services under real constraints.”
+
+
+ConfigurationProperties annotation is used to bind the external configuration properties from application properties or application.yml file to a Java object. It allows you to map hierarchical properties to a POJO (Plain Old Java Object) class, making it easier to manage and access configuration values in a type-safe manner.
+
+Value annotation is used to inject a specific property value from the application properties or application.yml file directly without the need to create a separate POJO class for binding.
+
+Example:
+@ConfigurationProperties(prefix = "app")
+public class AppConfig {
+    private String name;
+    private int timeout;
+    // getters and setters
+} 
+@Value("${app.name}")
+private String appName; 
+
+In summary, ConfigurationProperties is used for binding multiple related properties to a POJO, while Value is used for injecting individual property values directly into fields.
+
+
+@Lookup annotation is used in Spring to perform method injection, allowing you to dynamically override a method to return a different bean instance at runtime. It is particularly useful when you need to inject prototype-scoped beans into singleton-scoped beans.
+
+When a method is annotated with @Lookup, Spring overrides that method to return a new instance of the specified bean each time it is called, rather than returning the same instance. This is especially helpful when you want to ensure that a new instance of a prototype bean is provided whenever the method is invoked, even if the containing bean is a singleton.
+
+
+Stream API in Java provides a functional approach to process sequences of elements (like collections) in a declarative way. It allows you to perform operations such as filtering, mapping, and reducing on data in a concise and readable manner.
+Key features of Stream API include:
+1. Laziness: Stream operations are lazy, meaning they are not executed until a terminal operation is invoked. This allows for efficient processing of large datasets.
+2. Functional Programming: Stream API leverages functional programming concepts, allowing you to use lambda expressions and method references for defining operations.
+3. Parallel Processing: Stream API supports parallel processing, enabling you to process data concurrently for improved performance on multi-core processors.
+
+Example:  
+List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David");
+List<String> filteredNames = names.stream()
+    .filter(name -> name.startsWith("A"))
+    .collect(Collectors.toList());
+In this example, we create a stream from a list of names, filter the names that start with "A", and collect the results into a new list.
+
+Stream is not resuable; once a terminal operation is performed, the stream is considered consumed and cannot be used again. To perform multiple operations, you need to create a new stream from the source data each time.
+
+
+When we need to make a bean immutable?
+One case is appName and appVersion which we generally set in application.properties file and we don't want them to be changed during runtime so in that case we can make those beans immutable by using @ConfigurationProperties with final fields and no setters.
+Example:  
+@ConfigurationProperties(prefix = "app")
+public class AppConfig {  
+    private final String name;
+    private final String version;
+
+    public AppConfig(String name, String version) {
+        this.name = name;
+        this.version = version;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+} 
+
+
+
+RefreshScope in Spring Boot is used to define beans that can be reloaded or refreshed at runtime without restarting the entire application. This is particularly useful in cloud-native applications where configuration properties may change dynamically, and you want to update the bean instances with the new configuration values without downtime.
+
+When a bean is annotated with @RefreshScope, Spring creates a proxy for that bean. When the refresh event is triggered (for example, by calling the /actuator/refresh endpoint), Spring will recreate the bean instance with the updated configuration values.
+
+Can I create object os abstract class in java?
+No, you cannot create an object of an abstract class in Java. An abstract class is a class that is declared with the abstract keyword and may contain abstract methods (without implementation) and concrete methods (with implementation)
+Abstract classes are meant to be subclassed, and they cannot be instantiated directly.
+constructor of abstract class is called when a subclass object is created.
+
+What is the difference between Checked and Unchecked Exceptions in Java?
+Checked Exceptions: 
+Checked exceptions are exceptions that are checked at compile-time. This means that the compiler requires you to handle these exceptions either by using a try-catch block or by declaring them in the method signature using the throws keyword. Examples of checked exceptions include IOException, SQLException, and ClassNotFoundException.
+Unchecked Exceptions:
+Unchecked exceptions, also known as runtime exceptions, are not checked at compile-time. These exceptions can occur during the execution of the program and do not require explicit handling. Examples of unchecked exceptions include NullPointerException, ArrayIndexOutOfBoundsException, and IllegalArgumentException.
+
+What is the difference between an Abstract Class and an Interface in Java?
+Abstract Class:
+An abstract class is a class that cannot be instantiated on its own and may contain both abstract methods (without implementation) and concrete methods (with implementation). Abstract classes are used to provide a common base for subclasses and can have member variables, constructors, and access modifiers. A class can extend only one abstract class (single inheritance).
+Interface:
+An interface is a contract that defines a set of abstract methods that implementing classes must provide. Interfaces can only contain method signatures (until Java 8, after which default and static methods were introduced) and constants. Interfaces are used to achieve multiple inheritance in Java, as a class can implement multiple interfaces. Interfaces do not have constructors or member variables (except for constants).
+
+Example:
+// Abstract Class 
+abstract class Animal {
+    abstract void makeSound();
+    
+    void eat() {
+        System.out.println("This animal eats food.");
+    }
+}
+// Interface
+interface Flyable {
+    void fly();
+}
+class Dog extends Animal {
+    void makeSound() {
+        System.out.println("Woof Woof");
+    }
+}
+class Bird extends Animal implements Flyable {
+    void makeSound() {
+        System.out.println("Chirp Chirp");
+    }
+    
+    public void fly() {
+        System.out.println("This bird can fly.");
+    }
+}
+
+Multiple Inheritance is not supported in Java through classes to avoid complexity and ambiguity that arises from the "Diamond Problem," where a class could inherit conflicting implementations from multiple parent classes. Instead, Java supports multiple inheritance through interfaces, allowing a class to implement multiple interfaces without the issues associated with class-based multiple inheritance.
+Example:
+interface A {
+    void methodA();
+}
+interface B {
+    void methodB();
+}
+class C implements A, B {
+    public void methodA() {
+        System.out.println("Method A implementation");
+    }
+    
+    public void methodB() {
+        System.out.println("Method B implementation");
+    }
+}
+
+What is Diamond Problem in Java?
+The Diamond Problem is a scenario in object-oriented programming where a class inherits from two classes that both inherit from a common superclass. This creates ambiguity when the subclass tries to access methods or properties defined in the common superclass, as it is unclear which path to follow.
+
+Example of Diamond Problem (not allowed in Java):
+class A {
+    void display() {
+        System.out.println("Class A");
+    }
+}
+class B extends A {
+    void display() {
+        System.out.println("Class B");
+    }
+}
+class C extends A {
+    void display() {
+        System.out.println("Class C");
+    }
+} 
+class D extends B, C { // This will cause a compilation error
+    void show() {
+        display(); // Ambiguity: Which display() method to call?
+    }
+} 
+How C++ solves Diamond Problem:
+C++ solves the Diamond Problem using virtual inheritance. When a class is declared as a virtual base class, it ensures that only one instance of the base class is created, regardless of how many times it is inherited in the hierarchy. This eliminates ambiguity and ensures that there is a single path to access the members of the common base class.
+class A { 
+    void display() {
+        std::cout << "Class A" << std::endl;
+    }
+};
+class B : virtual public A {
+    void display() {
+        std::cout << "Class B" << std::endl;
+    }
+};
+class C : virtual public A {
+    void display() {
+        std::cout << "Class C" << std::endl;
+    }
+};
+class D : public B, public C {
+    void show() {
+        display(); // No ambiguity: Calls A's display() method
+    }
+};

@@ -1,0 +1,254 @@
+1) Understand what Bevy Commerce likely cares about for this role
+
+From their own materials, they position themselves as a Shopify Plus partner delivering connected commerce (e.g., integrations, POS, internationalization, data migration, custom apps/headless) and they emphasize performance/quality and long-term support. 
+Bevy Commerce
+
+The Senior Java Developer job description focuses heavily on:
+
+Spring Boot, REST APIs, microservices communication
+
+JPA/Hibernate + DB query optimization
+
+Security (OAuth2/JWT)
+
+CI/CD, production troubleshooting, availability
+
+Docker + Kubernetes
+
+Messaging (RabbitMQ/Kafka/ActiveMQ)
+
+Observability/APM (Datadog/New Relic/Grafana)
+
+Plus SQL/NoSQL and cloud exposure 
+Horilla Dashboard
+
+So your interview prep should be less “random Java trivia” and more “I can build and operate backend services in a real production environment.”
+
+2) The main risk: “Senior” title vs your 3 years
+
+Their posting lists 5–6+ years as “ideal.” 
+Horilla Dashboard
+
+But the fact you’re already in the final interview strongly suggests they’re open to you anyway—now you need to signal senior behaviors:
+
+Senior signals (even at 3 years):
+
+You take ownership end-to-end (design → delivery → monitoring → incident fixes).
+
+You can explain tradeoffs (not just “what I did”).
+
+You prevent problems with testing, CI/CD, observability, and good API design.
+
+You communicate clearly and work well cross-functionally (frontend/QA/product).
+
+A strong way to say it (use something like this)
+
+“I have 3 years of experience, but in that time I’ve consistently worked at a senior scope: owning services end-to-end, designing APIs, improving performance and reliability, and being accountable in production. I’m confident in Spring Boot + microservices patterns, and I’m comfortable debugging and operating services under real constraints.”
+
+Then immediately back it up with 2–3 concrete examples with metrics (latency reduced, cost reduced, incidents reduced, throughput improved, deployment frequency improved, etc.).
+
+3) Build a “role-to-proof” one-pager (this is the highest ROI prep)
+
+Take the bullets from their JD and attach your evidence.
+
+Here’s a template you can literally fill in tonight:
+
+Spring Boot + REST APIs (JD requirement) 
+Horilla Dashboard
+
+Example: “Built X service in Spring Boot that did Y.”
+
+Proof: endpoints, auth, validation, pagination, versioning, error model
+
+Impact: response time, reliability, adoption, fewer bugs
+
+Microservices communication (JD requirement) 
+Horilla Dashboard
+
+Example: synchronous REST vs async events; how you handled failures
+
+Proof: retries/backoff, circuit breaker, idempotency keys, saga/outbox (even if lightweight)
+
+Impact: fewer failed orders / fewer duplicate actions / better resiliency
+
+Database + JPA/Hibernate optimization (JD requirement) 
+Horilla Dashboard
+
+Example: fixed N+1, improved query plans, added indexes, reduced lock contention
+
+Proof: explain how you diagnosed (logs/APM/EXPLAIN), what you changed
+
+Impact: p95 latency down, CPU down, DB load down
+
+Security: OAuth2/JWT + Spring Security (JD requirement) 
+Horilla Dashboard
+
+Example: resource server config, RBAC, claims-based auth
+
+Proof: token validation, expiry/refresh approach, least privilege
+
+Impact: fewer security issues, clearer permission model
+
+CI/CD + Docker/K8s + monitoring (JD requirement) 
+Horilla Dashboard
+
+Example: pipeline stages, test gates, container build, deploy strategy
+
+Proof: health checks, readiness/liveness, rollback, alerting
+
+Impact: deploy frequency up, incidents down, MTTR down
+
+Bring this one-pager (even mentally). Final interviewers love candidates who can connect the dots like this.
+
+4) Prepare for how Bevy interviews feel
+
+Glassdoor candidates mention very time-boxed coding (as short as 5 minutes) and quick-fire technical questions, sometimes with a rushed vibe. 
+Glassdoor
+
+Even if your final round is more “leadership/culture,” you should be ready to answer crisply.
+
+Quick-fire strategy (works extremely well)
+
+For any technical question, respond in this order:
+
+Direct answer in 1 sentence
+
+Key tradeoff
+
+1 real example
+
+What you’d monitor/test
+
+Example:
+
+“For microservice-to-microservice reliability, I default to timeouts + retries with backoff, but only with idempotency. The tradeoff is increased load during outages. In my last service, we used idempotency keys on order creation and monitored retry rate + p95 latency to detect downstream degradation.”
+
+5) High-yield technical topics to review (based on their JD)
+
+You don’t need to “learn everything.” You need confidence in the exact areas they listed. 
+Horilla Dashboard
+
+A) Spring Boot (core)
+
+DI basics, configuration, profiles
+
+Exception handling strategy: global handler, error response design
+
+Spring Actuator basics (health/readiness/metrics) and why it matters
+
+Testing: slice tests vs integration tests, Testcontainers (if you’ve used it)
+
+B) Microservices & distributed systems
+
+Service boundaries + “database per service” concept
+
+Sync vs async; when to use events
+
+Idempotency (especially for payments/orders)
+
+Consistency: eventual consistency + sagas (high-level explanation is enough)
+
+Resilience: timeouts, retries, circuit breakers, bulkheads, rate limiting
+
+C) Data layer (JPA/Hibernate)
+
+N+1 problem, fetch joins, entity graphs
+
+Transaction boundaries; isolation levels (at least know what they are used for)
+
+Optimistic locking vs pessimistic locking
+
+Indexing basics + reading an EXPLAIN plan (high-level)
+
+D) Security (must be solid)
+
+OAuth2 concepts (resource server vs auth server)
+
+JWT validation: signature, issuer/audience, expiry, clock skew
+
+Role-based access control, least privilege
+
+Common backend OWASP issues (injection, broken access control, sensitive data exposure)
+
+E) DevOps/Operations (they explicitly call this out)
+
+CI/CD pipeline design: build → test → scan → deploy
+
+Docker: how to package a Spring Boot service
+
+Kubernetes: liveness vs readiness, config/secrets, autoscaling at a high level
+
+Observability: logs/metrics/traces; what you look at during an incident (APM was mentioned explicitly) 
+Horilla Dashboard
+
+F) Messaging (at least conversationally)
+
+Even if you haven’t used Kafka/RabbitMQ deeply, learn:
+
+When you’d pick messaging
+
+At-least-once delivery + why idempotent consumers matter
+
+DLQ concept
+
+6) Tie your answers to Bevy’s commerce world
+
+Since they build Shopify/connected commerce solutions (migrations, integrations, POS, internationalization, custom apps/headless), your examples should map to:
+
+Third-party API integrations (rate limits, retries, webhooks, signature verification)
+
+Data migration (backfills, validation, reconciliation)
+
+POS / inventory / order flows
+
+Internationalization (currency, locale, tax rules) 
+Bevy Commerce
++1
+
+Even if you didn’t work on Shopify specifically, frame your experience in these patterns.
+
+7) Final interview “story set” to prepare (don’t skip this)
+
+Have these 6 stories ready using STAR format:
+
+A time you owned a feature end-to-end
+
+A production incident you handled (how you diagnosed + fixed + prevented recurrence)
+
+A performance improvement (DB/query/cache/threading)
+
+A security improvement (auth, permissions, secrets)
+
+A cross-team win (frontend/QA/product alignment)
+
+A time you made a tradeoff (what you chose, what you sacrificed, why)
+
+This is how you “sound senior” without having 8 years.
+
+8) Questions to ask them (final round = you interview them too)
+
+These make you look experienced and help you avoid surprises:
+
+Architecture & work
+
+“What does your microservices landscape look like today—how many services, and what are the biggest reliability challenges?”
+
+“Where do you use async messaging today (Kafka/RabbitMQ), and for what use cases?” 
+Horilla Dashboard
+
+“What’s the most important integration you support (Shopify, POS, third-party apps), and what are the common failure modes?” 
+Bevy Commerce
+
+Quality & delivery
+
+“What does your CI/CD pipeline look like, and how often do you deploy?” 
+Horilla Dashboard
+
+“How do you do observability—logs/metrics/traces—and what APM tooling is most used?” 
+Horilla Dashboard
+
+Expectations
+
+“What would success look like in the first 30/60/90 days?”
+
+“Is there an on-call rotation? What’s the incident process?”
