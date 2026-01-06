@@ -1,0 +1,23 @@
+Spring boot Application Starts successfully but returns 404 for all endpoints or api. how to debug this ?
+
+
+step 1: controller registered or not ?
+        GET actuator/mappings
+
+step 2: verify component scanning
+        package structure checking
+        check main class and controller are in same package or sub package
+
+step 3: Annotation audit
+        did we forget @RestController
+        @GetMapping
+
+step 4: check application.properties
+        server.servlet.context-path
+        ( like /api/dims)
+        that might affect URL paths
+
+step 5: spring security
+        check for endpoint rejection
+
+        

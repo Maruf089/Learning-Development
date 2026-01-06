@@ -1,0 +1,34 @@
+- Lombok :
+Lombok is a popular Java library that helps reduce boilerplate code by generating common methods like getters, setters, constructors, and more through annotations. It allows developers to write cleaner and more concise code by automating the generation of repetitive code patterns. 
+
+How Lombok works:
+Lombok uses annotations to indicate which methods or constructors should be generated for a class. When you compile your code, Lombok processes these annotations ( by extending JSR annotation processor ), modify Abstract Syntax Tree(AST). Finally, the modified AST is converted back into bytecode, which is then compiled into class files that can be executed by the Java Virtual Machine (JVM). There will be no lombok code in the final bytecode; only the generated methods will be present.
+
+For example, if you annotate a class with @Getter and @Setter, Lombok will generate the getter and setter methods for all the fields in that class during compilation.
+
+
+
+
+- instance of keyword : to check if this particular object is instance of string.
+Now if it is a string what we will do we will type cast it to a string object and then make use of it. But now here first we are checking and after that we are doing this type casting. Well, doing all that is not needed anymore. By using pattern matching with instance of, what you can do, you can make use of instance
+
+- Text Blocks : In Java 17, we have something called as text blocks. Text blocks are basically multi line strings. 
+
+- Sealed Classes : Sealed classes are basically used to restrict which other classes or interfaces can extend or implement them. So basically, when you create a sealed class, you have to specify the permitted subclasses that can extend that particular sealed class. This is mainly used for better control over the class hierarchy and to enhance security by preventing unauthorized subclassing.
+
+- Records : Records are a special kind of class in Java that is used to model immutable data. When you create a record, the compiler automatically generates boilerplate code for you, such as constructors, getters, equals(), hashCode(), and toString() methods. This makes it easier to create classes that primarily hold data without having to write a lot of repetitive code.
+
+
+
+
+Different Ways To Create Immutable Class In Java:
+1. Using final keyword for class and fields
+2. No setter methods
+3. Initialize all fields via constructor
+4. Make defensive copies of mutable fields  
+ - Using Records (Java 16 and above)
+ - Using Lombok's @Value annotation 
+
+
+
+

@@ -1,0 +1,19 @@
+
+
+scope in Spring boot is used to Define behavior of the bean. this can be set with the help of @scope annotation in Spring boot. there are two main Scopes:
+- singleton which is the default scope and tells that only one instance of The Bean will be created during the complete life cycle 
+- second one is prototype which tells that a new instance will be created every time you will invoke getBean() method or Autowired the bean
+
+besides this there are additional Scopes:
+which are related to the web application
+- request scope which will create a new instance for every HTTP request 
+- session which will create a new instance for every HTTP session 
+- Global session which is same as session only but related to the HTTP Global session 
+- application which is same as singleton only but related to the web application context
+
+  https://www.youtube.com/watch?v=f8b7HzBaXC8&list=PL61PaxtHbYMo9ZGgzp3mkRFINcpvGTSdF
+
+  Chapter-11: Bean Scope in Spring Boot | Singleton, Prototype, Request, Session, Global, Application
+
+
+@profile annotation allows me to inject a particular Bean only if the particular profile is set.

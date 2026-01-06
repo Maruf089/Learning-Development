@@ -1,0 +1,13 @@
+resilience4j is basically a lightweight Java Library which is used for handling faults inside your microservices architecture for example let's say you have service a and service B inside your microservice architecture
+
+service a is calling service B repeatedly right now let's say service B is down right and the call from service a to service B is failing repeatedly right so in that case what will happen is service a will also go down right because it is continuously trying to call service B and that is failing repeatedly right so in order to avoid such scenarios we have something called as circuit breaker pattern right so circuit breaker pattern will basically stop the calls from service a to service B for a particular amount of time so that service a will not go down.
+
+
+resilience4j provides different patterns for example circuit breaker retry and rate limiter so circuit breaker prevents the repeated calls to service B in case of failures and it will act as a switch between service a to service B.
+
+
+circuit breaker comes into picture and it will stop the flow of request to prevent the damage.
+breaker operates in three states right closed open and half open right when we say closed that means the circuit is closed and the request are flowing properly and when service B is down and there is some error limit exceeded then it will go to open state that means the request are not flowing anymore that means the flow of request is stopped once it is in open state after certain amount of weight it will go to half open state in order to check if this particular service is up or not so this guy will send repeated health check requests to service B in order to check if it is up or not right once it is confirmed that service B is up then it will go to closed state again and the request will start flowing again from service a to service B
+  https://www.youtube.com/shorts/92Z8DQsYyN8
+  Circuit Breaker Pattern | Resilience4j Circuit Breaker | Microservices | Spring Boot | Java
+
