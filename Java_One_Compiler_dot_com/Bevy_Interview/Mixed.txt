@@ -1,8 +1,9 @@
 A strong way to say it (use something like this)
 
 “I have 3 years of experience, but in that time I’ve consistently worked at a senior scope: 
-owning services end-to-end, designing APIs, improving performance and reliability, and 
-being accountable in production. I’m confident in Spring Boot + microservices patterns, and I’m comfortable debugging and operating services under real constraints.”
+taking ownership to services end-to-end, designing APIs, improving performance and reliability, and 
+being accountable in production. I’m confident in Spring Boot + microservices patterns, and I’m comfortable in debugging and operating services under real constraints.”
+
 
 
 
@@ -42,6 +43,18 @@ In summary, ConfigurationProperties is used for binding multiple related propert
 @Lookup annotation is used in Spring to perform method injection, allowing you to dynamically override a method to return a different bean instance at runtime. It is particularly useful when you need to inject prototype-scoped beans into singleton-scoped beans.
 
 When a method is annotated with @Lookup, Spring overrides that method to return a new instance of the specified bean each time it is called, rather than returning the same instance. This is especially helpful when you want to ensure that a new instance of a prototype bean is provided whenever the method is invoked, even if the containing bean is a singleton.
+Example:
+@Component
+public abstract class SingletonBean {
+    
+    @Lookup
+    public abstract PrototypeBean getPrototypeBean();
+    
+    public void usePrototypeBean() {
+        PrototypeBean prototypeBean = getPrototypeBean();
+        // Use the prototype bean instance
+    }
+}
 
 
 
@@ -104,7 +117,7 @@ When a bean is annotated with @RefreshScope, Spring creates a proxy for that bea
 
 
 
-Can I create object os abstract class in java?
+Can I create object of abstract class in java?
 
 No, you cannot create an object of an abstract class in Java. An abstract class is a class that is declared with the abstract keyword and may contain abstract methods (without implementation) and concrete methods (with implementation)
 Abstract classes are meant to be subclassed, and they cannot be instantiated directly.
@@ -121,7 +134,21 @@ Checked exceptions are exceptions that are checked at compile-time. This means t
 Unchecked Exceptions:
 Unchecked exceptions, also known as runtime exceptions, are not checked at compile-time. These exceptions can occur during the execution of the program and do not require explicit handling. Examples of unchecked exceptions include NullPointerException, ArrayIndexOutOfBoundsException, and IllegalArgumentException.
 
-
+global exception handling in spring boot can be done using @ControllerAdvice and @ExceptionHandler annotations.
+Example:
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+    
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleGeneralException(Exception ex) {
+        return new ResponseEntity<>("An error occurred: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
 
 
 What is the difference between an Abstract Class and an Interface in Java?
@@ -634,7 +661,7 @@ System.out.println(str1 == str2); // false, compares references
 System.out.println(str1.equals(str2)); // true, compares content
 
 What is your experience with microservices architecture and Spring Boot?
-“I have worked on several projects where we transitioned from a monolithic architecture to microservices using Spring Boot. I have designed and implemented RESTful APIs, managed inter-service communication using webclient. I am familiar with best practices for building scalable and resilient microservices, including circuit breakers, load balancing, and centralized configuration management. Additionally, I have experience with Docker and orchestration with docker dwarm to deploy multiple database instance in different host PC's. Overall, I have a solid understanding of microservices principles and patterns, and I’m comfortable working in a distributed systems.”
+“I have worked on several projects where we transitioned from a monolithic architecture to microservices using Spring Boot. I have designed and implemented RESTful APIs, managed inter-service communication using webclient. I am familiar with best practices for building scalable and resilient microservices, including circuit breakers, load balancing. Additionally, I have experience with Docker and orchestration with docker dwarm to deploy multiple database instance in different host PC's. Overall, I have a solid understanding of microservices principles and patterns, and I’m comfortable working in a distributed systems.”
 
 
 WeakHashMap in Java:
@@ -705,4 +732,116 @@ List<Integer> squaredNumbers = transformList(numbers, n -> n * n); // [1, 4, 9, 
 2. Predicate<T>: Represents a boolean-valued function that takes an argument of type T and returns true or false.
 3. Consumer<T>: Represents a Consumer that takes an argument of type T and returns no result.
 4. Supplier<T>: Represents a supplier of results, providing a method that returns a result of type T without taking any arguments.
+
+How to optimize spring boot startup time?
+1. Use Spring Boot DevTools: This module provides features like automatic restarts and live reloading, which can speed up development and startup time.
+2. Exclude Unused Auto-configurations: Use the @SpringBootApplication annotation's exclude attribute to disable unnecessary auto-configurations that are not needed for your application. @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+3. Lazy Initialization  : Enable lazy initialization by setting the spring.main.lazy-initialization property to true in your application.properties file. This defers bean creation until they are needed, reducing startup time.
+4. Use Spring Boot Actuator: Monitor and analyze the startup time of your application using Spring Boot Actuator. It provides insights into the startup process and helps identify bottlenecks.
+5. Optimize Dependencies: Review and optimize your project's dependencies to ensure that only necessary libraries are included. Remove any unused or redundant dependencies that may slow down the startup process.
+6. Profile-specific Configurations: Use Spring profiles to load only the necessary configurations for a specific environment, reducing the amount of configuration processing during startup.
+7. Use Native Image Compilation: Consider using GraalVM to compile your Spring Boot application into a native image, which can significantly reduce startup time and memory footprint.
+8. Minimize Component Scanning: Limit the package scope for component scanning using the @ComponentScan annotation to avoid scanning unnecessary classes and reduce startup time.
+
+
+How to improve performance of Java application?
+1. Use Efficient Data Structures: Choose the right data structures (e.g., ArrayList, HashMap, LinkedList) based on the use case to optimize performance.
+2. Optimize Algorithms: Analyze and optimize algorithms to reduce time complexity and improve efficiency. 
+3. Minimize Object Creation: Reuse objects where possible to reduce garbage collection overhead and improve memory usage.
+4. Use Caching: Implement caching mechanisms to store frequently accessed data and reduce redundant computations or database calls.
+5. Optimize I/O Operations: Minimize disk and network I/O operations by batching requests, using buffered streams, and reducing the frequency of I/O calls.
+6. Use Multithreading: Leverage multithreading and concurrency to improve performance for CPU-bound tasks.
+7. Profile and Monitor: Use profiling tools (e.g., VisualVM, YourKit) to identify performance bottlenecks and optimize critical sections of code.
+8. Optimize Database Access: Use connection pooling, optimize SQL queries, and use indexing to improve database performance.
+9. Use Lazy Initialization: Delay the creation of objects until they are needed to reduce startup time and
+  memory consumption.
+
+
+Micrometering in Spring Boot:
+Micrometer is a metrics collection library that provides a simple and flexible way to instrument your Spring Boot applications. It acts as a monitoring systems, allowing you to collect and export metrics to different backends such as Prometheus, Graphite, JMX, and more.
+ Spring Boot Actuator integrates with Micrometer out of the box, providing built-in metrics for various components like HTTP requests, database connections, and JVM performance.
+
+
+What is Distributed Tracing?
+Distributed tracing is a method used to track and monitor requests as they propagate through various services in a distributed system or microservices architecture. It provides visibility into the flow of requests, helping to identify performance bottlenecks, latency issues, and errors across multiple services.
+Distributed tracing typically involves assigning a unique trace identifier to each request, which is passed along as the request moves through different services.
+Popular distributed tracing tools include Jaeger, Zipkin, and OpenTelemetry, which provide visualization and analysis of trace data to help developers understand the behavior of their distributed systems.
+
+Key concepts of Distributed Tracing.
+Distributed tracing consists of two main concepts
+  Trace Id
+  Span Id
+
+Trace Id is used to trace an incoming request and track it across all the composing services to satisfy a request.
+Span Id is more of spans in between service calls to track each request that is received and to the response that is sent out.
+
+https://github.com/amrutprabhu/distributed-tracing-with-spring-boot/tree/main/distributed-tracing-spring-boot-opentelemetry-jaeger
+
+https://www.youtube.com/watch?v=jfbUwZwzC98
+
+
+
+Cascading Problem in Microservices:
+Cascading failure in microservices refers to a situation where the failure of one service leads to the failure of other dependent services, resulting in a chain reaction that can bring down the entire system. This can occur when services are tightly coupled or when there is a lack of proper error handling and resilience mechanisms in place.
+To mitigate cascading failures, microservices architectures often implement patterns such as circuit breakers, retries, timeouts.
+
+
+Retry Pattern in Microservices:
+The retry pattern in microservices is a resilience strategy used to handle temporary failures when communicating between services. This helps improve the overall reliability of the system by allowing temporary errors to be resolved without immediate failure.
+
+Why AOP is needed for retry pattern implementation?
+AOP allows you to separate the retry logic from the business logic, making the code cleaner and easier to maintain. By using AOP, you can apply the retry behavior declaratively through annotations, without cluttering the core functionality of your services.
+
+
+ELK Stack:
+ELK Stack is a collection of three open-source products: Elasticsearch, Logstash, and Kibana. It is used for searching, analyzing, and visualizing log data in real-time.
+Elasticsearch is a distributed search and analytics engine that stores and indexes log data.
+Logstash is a data processing pipeline that ingests log data from various sources, transforms it, and sends it to Elasticsearch.
+Kibana is a data visualization tool that provides a user interface for exploring and visualizing log data stored in Elasticsearch.
+Example:  
+Logstash Configuration File (logstash.conf):
+input {
+    file {
+        path => "/var/log/myapp/*.log"
+        start_position => "beginning"
+    }
+}
+filter {
+    grok {
+        match => { "message" => "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:loglevel} %{GREEDYDATA:message}" }
+    }
+    date {
+        match => [ "timestamp", "ISO8601" ]
+    }
+}
+output {
+    elasticsearch {
+        hosts => ["http://localhost:9200"]
+        index => "myapp-logs-%{+YYYY.MM.dd}"
+    }
+    stdout { codec => rubydebug }
+}
+Example:
+Kibana Dashboard:
+In Kibana, you can create visualizations and dashboards to analyze log data. For example, you can create a line chart to visualize the number of error logs over time, or a pie chart to show the distribution of log levels (INFO, WARN, ERROR) in your application logs.
+
+Example:
+@GetMapping("/errors-over-time")
+public ResponseEntity<List<ErrorLogCount>> getErrorsOverTime() {
+    // Query Elasticsearch to get error log counts over time
+    // Return the data for visualization in Kibana
+}
+
+Distributed Tracing vs ELK Stack:
+Distributed Tracing and ELK Stack are both used for monitoring and analyzing applications, but they serve different purposes.
+Distributed Tracing focuses on tracking the flow of requests across multiple services in a distributed system. It provides insights into the performance and latency of individual services, helping to identify bottlenecks and failures in the request path.
+ELK Stack, on the other hand, is primarily used for log management and analysis. It collects, stores, and visualizes log data from various sources, allowing you to search and analyze logs for troubleshooting and monitoring purposes.
+
+https://www.youtube.com/watch?v=xG9i7O4v0nI
+
+
+MDC (Mapped Diagnostic Context) in Logging:
+MDC is a feature provided by logging frameworks like Log4j and SLF4J that allows you to add contextual information to log messages. It is essentially a thread-local storage mechanism that enables you to store key-value pairs that can be included in log entries.
+
+
 
