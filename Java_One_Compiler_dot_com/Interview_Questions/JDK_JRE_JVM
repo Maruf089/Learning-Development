@@ -1,0 +1,172 @@
+# JDK vs JRE vs JVM
+
+JDK (Java Development Kit) is a software development kit used to develop Java applications. It includes the Java Runtime Environment (JRE), a compiler (javac), debugger, and other tools needed for Java development.
+
+JRE (Java Runtime Environment) is a part of the JDK that provides the libraries, Java Virtual Machine (JVM), and other components to run Java applications.
+
+JVM (Java Virtual Machine) runs Java bytecode and makes Java platform-independent.
+
+In summary, JDK is for development, JRE is for running Java applications, and JVM is the engine that executes Java bytecode.
+
+---
+--- 
+
+🔹 What are constructors in Java?
+Special methods used to initialize objects
+Same name as class
+No return type
+Called automatically when object is created
+
+🔹 Types of Constructors:
+
+1. Default Constructor example:
+```java 
+class Example {
+    int value;
+    // Default constructor
+    Example() {
+        value = 0;
+    }
+} 
+```
+2. Parameterized Constructor example:
+```java
+class Example {
+    int value;
+    // Parameterized constructor
+    Example(int v) {
+        value = v;
+    }
+}
+```
+
+3. Copy Constructor example:
+```java
+class Example {
+    int value;
+    // Copy constructor
+    Example(Example obj) {
+        value = obj.value;
+    }
+} 
+```
+🔹 Key Points:
+- Constructors can be overloaded
+- No return type, not even void 
+- Can call other constructors using `this()`
+- If no constructor is defined, Java provides a default constructor
+- Used for object initialization
+---
+---
+
+🔹 Difference between Array and ArrayList
+| Feature           | Array                        | ArrayList
+  
+| Size               | Fixed size                  | Dynamic size                  |
+| Type               | Can hold primitives and objects| Can only hold objects         | 
+| Performance       | Faster for fixed size          | Slower due to dynamic resizing |
+
+🔹 What is Spring Boot? Why is it used?
+Spring Boot is a framework that simplifies Spring application development.
+
+Why used?
+Auto-configuration
+Embedded server (Tomcat)
+Less boilerplate code
+Faster development
+
+🔹 Difference between Spring and Spring Boot
+| Spring                        | Spring Boot        |
+| ----------------------------- | ------------------ |
+| Requires manual configuration | Auto-configuration |
+| External server needed        | Embedded server    |
+| More setup                    | Easy & fast        |
+
+
+🔹 What is Dependency Injection?
+
+Dependency Injection means objects are provided by the framework instead of creating them manually.
+
+🔹 Explain Dependency Injection in Spring
+Dependency Injection (DI) is a design pattern used in Spring to achieve Inversion of Control (IoC) between classes and their dependencies. Instead of a class creating its own dependencies, they are provided (injected) by an external source, typically the Spring container.
+Benefits:
+Decouples components how ? Classes do not create their own dependencies
+Promotes reusability how ? Dependencies can be shared across different classes
+Easier testing how ? Mock dependencies
+
+🔹 Types of Dependency Injection
+
+1. Constructor Injection example:
+```java
+class Service {
+    private final Repository repository;
+
+    // Constructor Injection
+    public Service(Repository repository) {
+        this.repository = repository;
+    }
+}
+why decalre repository as final ? To ensure immutability and that the dependency is not changed after object creation.
+```
+
+2. Setter Injection example:
+```java
+class Service {
+    private Repository repository;
+
+    // Setter Injection
+    public void setRepository(Repository repository) {
+        this.repository = repository;
+    }
+}
+why not final here ? Because the dependency can be changed after object creation using the setter method.
+```
+3. Field Injection example:
+```java
+class Service {
+    @Autowired
+    private Repository repository;
+}
+```   
+Field Injection is not recommended due to tight coupling and difficulty in testing. 
+how ? Makes unit testing harder as dependencies are not visible in constructor or setters.
+
+
+🔹 What is a REST API?
+A REST API (Representational State Transfer Application Programming Interface) is a set of rules and conventions for building and interacting with web services. 
+- It uses standard HTTP methods.
+- Stateless communication. how ? Each request from client to server must contain all the information needed to understand and process the request.
+- Resource-based URLs. how ? Each resource is identified by a unique URL.
+- Supports multiple data formats (JSON, XML).
+
+Alternatives to REST:
+GraphQL for flexible queries
+gRPC for high-performance communication
+SOAP, or Simple Object Access Protocol, is a messaging protocol.
+
+Why is Java not 100% Object-Oriented?
+Because it contains primitive data types (int, boolean, char, etc.) which are not objects.
+These primitives are used for performance optimization and memory efficiency.
+Java follows a hybrid approach, combining both object-oriented and procedural programming paradigms.
+---
+
+How many types of packages are there in Java?
+There are two types of packages in Java
+
+1. User-defined packages
+example:
+```java
+package com.example.myapp;
+public class MyClass {
+    // class implementation
+}
+
+2. Built-in packages 
+example:
+java.util, java.io, java.net, etc.
+
+Why Packages are used?
+Packages are used in Java in order to prevent naming conflicts, control access, and to organize classes.
+They help in modularizing the code and make it easier to maintain and understand.
+
+

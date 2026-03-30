@@ -1,0 +1,64 @@
+🔹 What is React?
+
+A JavaScript library for building UI
+Component-based
+Uses Virtual DOM for performance
+
+🔹 Key Features of React
+- Component-based architecture
+- Unidirectional data flow
+- JSX syntax extension
+
+🔹 React Components
+- Functional Components
+- Class Components
+
+🔹 State and Props
+- State: Local data storage for components
+- Props: Read-only data passed to components
+
+🔹 Lifecycle Methods (Class Components)
+- componentDidMount
+- componentDidUpdate
+- componentWillUnmount
+
+🔹 Hooks (Functional Components)
+- useEffect Hook
+- useState Hook
+- useContext Hook
+
+🔹 What is useState() hook?
+Used to manage state in functional components
+It returns an array with two elements: the current state value and a function to update that state.
+Example:
+const [count, setCount] = useState(0);
+
+🔹 What is useEffect() used for?
+Handles side effects like:
+-API calls
+-Component lifecycle
+-Subscriptions
+
+
+🔹 What is JSX?
+JSX is a syntax extension for JavaScript that allows writing HTML-like code in JavaScript files.
+It makes it easier to create React elements and components.
+Example:
+const element = <h1>Hello, world!</h1>;
+
+🔹 Virtual DOM
+A lightweight copy of the real DOM
+Improves performance by minimizing direct DOM manipulations
+When state or props change, React updates the Virtual DOM first, then efficiently updates the real DOM.
+
+🔹 Event Handling in React
+- Use camelCase for event names (e.g., onClick)
+- Pass functions as event handlers
+Example:
+<button onClick={handleClick}>Click Me</button>
+
+🔹 Conditional Rendering
+- Use JavaScript operators like if or ternary to conditionally render components
+Example:
+{isLoggedIn ? <LogoutButton /> : <LoginButton />}
+
