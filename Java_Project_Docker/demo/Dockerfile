@@ -1,9 +1,14 @@
-FROM eclipse-temurin:17-jdk-slim
+# Use an official JDK runtime as base image
+FROM openjdk:17-jdk-slim
 
+# Set working directory inside container
 WORKDIR /app
 
+# Copy the JAR file into the container
 COPY target/demo-0.0.1-SNAPSHOT.jar app.jar
 
+# Expose the port your app runs on
 EXPOSE 8080
 
+# Run the JAR
 ENTRYPOINT ["java", "-jar", "app.jar"]
