@@ -12,3 +12,8 @@ EXPOSE 8080
 
 # Run the JAR
 ENTRYPOINT ["java", "-jar", "app.jar"]
+
+
+# docker build -t springboot-crud-app .
+# docker run -p 8080:8080 springboot-crud-app
+

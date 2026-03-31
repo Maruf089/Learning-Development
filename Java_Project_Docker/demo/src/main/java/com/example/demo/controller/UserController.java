@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.ApiResponse;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -20,17 +21,18 @@ public class UserController {
 
     // CREATE
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<ApiResponse<User>> createUser(@RequestBody User user) {
         User created = service.createUser(user);
-        return new ResponseEntity<>(created, HttpStatus.CREATED);
-        // OR: return ResponseEntity.status(HttpStatus.CREATED).body(created);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new ApiResponse<>("Created", created));
     }
 
     // READ ALL
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<ApiResponse<List<User>>> getAllUsers() {
         List<User> users = service.getAllUsers();
-        return ResponseEntity.ok(users);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new ApiResponse<>("Fetch All", users));
     }
 
     // READ BY ID
