@@ -68,4 +68,12 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/greet")
+    public ResponseEntity<ApiResponse<String>> greet() {
+        return ResponseEntity.ok(
+                new ApiResponse("Greeting fetched successfully",
+                        service.getGreetingFromOtherService())
+        );
+    }
 }

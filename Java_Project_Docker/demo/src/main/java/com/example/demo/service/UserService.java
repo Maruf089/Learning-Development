@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
+import com.example.demo.client.GreetingClient;
 import com.example.demo.entity.User;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +12,11 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final GreetingClient greetingClient;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, GreetingClient greetingClient) {
         this.userRepository = userRepository;
+        this.greetingClient = greetingClient;
     }
 
     public List<User> getAllUsers() {
@@ -21,7 +25,7 @@ public class UserService {
 
     public User getUserById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
     }
 
     public User createUser(User user) {
@@ -44,4 +48,11 @@ public class UserService {
 
         userRepository.delete(existingUser);
     }
+
+    public String getGreetingFromOtherService() {
+        String greeting = greetingClient.getGreeting("Maruf");
+        return "User Service : " + greeting;
+    }
+
+
 }
