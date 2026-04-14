@@ -1,0 +1,118 @@
+Question 4
+
+“Your Spring Boot service crashes under high traffic.
+What could be the reasons and how would you approach fixing it?”
+
+“When a service crashes under high traffic, common reasons include thread pool exhaustion, database connection pool exhaustion, out-of-memory errors, or blocking calls.
+I first analyze metrics like CPU, memory, threads, and connection pools to identify the bottleneck.
+Based on the root cause, I tune thread pools, optimize DB queries, or introduce rate limiting to protect the service under load.
+I also chaos test the service to ensure it can handle high traffic gracefully in the future.”
+
+Question 5
+
+“Multiple beans of the same type exist and Spring throws a NoUniqueBeanDefinitionException.
+How do you fix this?”
+
+“If multiple beans of the same type exist and Spring throws a NoUniqueBeanDefinitionException, I can resolve it by using @Qualifier to specify which bean should be injected.
+Alternatively, I can use @Primary to mark one bean as the default.”
+
+
+Question 6
+
+“You need different configurations for dev, test, and production.
+How will you design this in Spring Boot?”
+
+“I use Spring Profiles to separate environment-specific configuration.
+I keep common settings in application.yml, and environment-specific overrides in application-dev.yml, application-test.yml, and application-prod.yml.
+Then I activate the right profile in each environment using SPRING_PROFILES_ACTIVE (env var) or JVM args.
+
+7. API returns 401 randomly. What could cause this?
+
+Strong Answer:
+
+“Random 401s usually indicate authentication context issues such as token expiry, clock skew, missing headers, non-sticky load balancers, or mismatched JWT secrets across instances.”
+
+8. Database connection pool is getting exhausted. How do you solve it?
+
+Strong Answer:
+
+“I inspect pool metrics to see active vs idle connections, identify long-running transactions or unclosed connections, optimize queries, and tune the pool size only after fixing leaks.”
+
+
+9. How do you handle failures between microservices?
+
+Strong Answer:
+
+“I use timeouts, retries with backoff, circuit breakers, and fallbacks to prevent cascading failures, typically implemented with Resilience4j.”
+
+
+10. Application memory usage keeps increasing. What do you suspect?
+
+Strong Answer:
+
+“I suspect a memory leak due to static references, unbounded caches, or unclosed resources. I analyze heap dumps to find retained objects and fix the leak at the source.”
+
+
+11. How do you implement retry logic for REST calls?
+
+Strong Answer:
+
+“I use Resilience4j retry with a limited retry count and always combine it with circuit breakers and fallback method to prevent cascading failures.
+
+12. New version deployed but users still see old behavior. Why?
+
+Strong Answer:
+
+“This can happen if old instances are still running, the load balancer hasn’t switched traffic, browser or CDN cache is serving old responses, or the deployment strategy wasn’t completed properly.”
+
+14. What happens if @Transactional fails midway?
+
+Strong Answer:
+
+“If a runtime exception occurs, Spring rolls back the transaction. Checked exceptions do not trigger rollback by default unless explicitly configured.”
+
+15. How do you verify a transaction rollback?
+
+Strong Answer:
+
+“I verify rollback by checking database state after failure and by writing integration tests that assert data consistency.”
+
+16. How to handle circular dependencies in Spring?
+Strong Answer:
+“I use @Lazy annotation on one of the dependent beans to break the circular dependency, or refactor the design to eliminate the cycle altogether.”
+
+19. How do you achieve zero-downtime deployment?
+
+Strong Answer:
+
+“I use blue-green or rolling deployments with health checks so traffic is shifted only to healthy instances.”
+
+
+
+
+Question 3
+
+“You changed application.properties, but the changes are not reflecting in your Spring Boot application.
+What could be the reasons?”
+“If application.properties changes are not reflecting, it could be because the correct Spring profile is not active in production.
+Caching Issues: The application might be using cached configurations. Restarting the application can help ensure that the latest configurations are loaded.
+In containerized environments, the Docker image might not have been rebuilt.”
+
+Question 2
+“A REST API is fast locally but slow only in production.
+How do you debug and identify the root cause?”
+
+“If an API is fast locally but slow in production, I first check whether it depends on external resources like the database. I enable slow query logs to identify any database-related bottlenecks.
+Then I check network latency between the application and the database, as well as any third-party services it calls.
+I also review application logs for errors or warnings that could indicate issues.
+Finally, I compare production load and data volume because production usually has much more traffic and data.”
+
+Question 1
+
+“Your Spring Boot application works perfectly on your local machine but fails immediately after deployment to production.
+What are the first things you check and why?”
+
+“If an app works locally but fails in production, I first check configuration and active profiles, because most issues come from missing or incorrect prod configs like DB credentials or environment variables.
+Next, I immediately check startup logs to identify the exact failure — usually bean creation, connection, or permission errors show up clearly.
+Finally, I verify environment differences, such as Java version, OS, file paths, and memory limits, since these commonly cause deployment-only failures.”
+

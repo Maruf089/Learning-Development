@@ -1,0 +1,91 @@
+1) Tell me about a time you led a technical task end-to-end.
+
+Answer
+Task: We needed a reliable way to sync data and updates across modules
+Action: I took ownership of designing and implementing the sync method.
+I introduced RabbitMQ messaging between modules, implemented Dead Letter Queue (DLQ) for rejected messages.
+ I set up the necessary queues, exchanges, and bindings, and ensured that messages were processed idempotently to avoid duplicate updates. 
+I improved reliability and observability of sync failures, reduced manual debugging time.
+
+
+2) Describe a time you disagreed with another engineer/PM/manager. What did you do?
+
+They wanted to use a simpler resttemplate-based sync approach without messaging.
+I explained the tradeoffs: simpler initial implementation vs long-term reliability and scalability.
+I proposed a proof-of-concept RabbitMQ implementation to demonstrate its benefits.
+After evaluating both approaches, the team agreed that messaging was the better long-term solution.
+
+3) How do you ensure code quality and reliability in your projects?
+I follow best practices like code reviews, automated testing (unit/integration), and CI/CD pipelines.
+I use static analysis tools (SonarQube) to enforce coding standards.
+I prioritize writing clean, maintainable code with proper documentation.
+I also monitor applications in production using tools like Prometheus and Grafana to catch issues early and ensure reliability.
+4) How do you handle tight deadlines and multiple priorities?
+I prioritize tasks based on their impact and urgency.
+I break down larger tasks into smaller, manageable chunks and set clear milestones.
+Try to do multi-tasking when possible.
+
+3) Tell me about a time you made a mistake in production. How did you handle it?
+Answer
+Mongo aggregation query caused high CPU load in production.
+Because of this data sync failed in production database.
+I need to solve this quickly.
+I restore the database from backup to reduce impact.
+Then I analyzed the query using explain plan, identified inefficiencies, and optimized the aggregation pipeline.
+I deployed the optimized query after testing it in staging, which resolved the CPU load issue.
+I documented the incident and shared learnings with the team to prevent similar issues in the future.
+
+4) Give an example of when you improved system performance?
+Answer
+Import exel file api was slow when importing large files.
+I profiled the API to identify bottlenecks and found that processing was done sequentially. 
+I refactored the import logic to use parallel processing allowing multiple rows to be processed concurrently.
+This change reduced the import time by 70% for large files.
+
+5) Give an example of when you improved system scalability?
+Answer
+One single database was handling all read and write operations causing performance bottlenecks as user base grew.
+I implemented database replication to separate read and write operations.
+Read replicas handled read-heavy operations, while the primary database focused on writes.
+This change improved overall system scalability and reduced latency for read operations.
+
+5) Tell me about a time you mentored or coached someone.
+Answer
+A junior developer was struggling with understanding Spring Boot concepts.
+I scheduled regular one-on-one sessions to explain core concepts and best practices.
+I provided them with resources and practical examples to work on.
+Over time, I saw significant improvement in their understanding and confidence in using Spring Boot.
+
+6) Describe a situation where requirements were unclear or changing.
+Answer
+Agile project with evolving requirements from feedback.
+
+7) Tell me about a time you had to make a tough trade-off.
+Answer
+Choosing between implementing a quick fix vs a long-term solution for a critical bug. Transactional data inconsistency issue needed immediate attention.
+Mongo and Mysql both in single transaction was not possible.
+I implemented a temporary fix to ensure data consistency quickly.
+Then implement separate service with @transaction for mongo and mysql separatedly.
+
+
+8) Describe a time you improved code quality or reduced technical debt.
+Remove Circular dependencies in the codebase by refactoring tightly coupled modules.
+I identified modules with circular dependencies using our tools.
+Remove duplicated code by creating shared utility classes.
+
+
+11) Describe a situation where you improved team collaboration.
+Answer
+We had communication gaps between frontend and backend teams causing delays.
+I initiated regular cross-team sync meetings to discuss progress and blockers.
+I also set up a shared documentation space for API contracts and requirements.
+This improved transparency and collaboration, leading to faster delivery times.
+
+
+9) Tell me about a time you handled a high-pressure deadline
+Answer
+Critical bug in production needed immediate fix.
+I quickly assembled a small team to diagnose and resolve the issue.
+We worked extended hours, communicated transparently and successfully deployed the fix within the tight deadline.
+
+
