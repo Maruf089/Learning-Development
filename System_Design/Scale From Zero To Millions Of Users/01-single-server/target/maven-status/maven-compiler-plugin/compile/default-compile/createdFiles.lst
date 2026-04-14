@@ -1,0 +1,5 @@
+com\scalable\singleserver\entity\User.class
+com\scalable\singleserver\controller\UserController.class
+com\scalable\singleserver\service\UserService.class
+com\scalable\singleserver\SingleServerApplication.class
+com\scalable\singleserver\repository\UserRepository.class

@@ -1,0 +1,69 @@
+Back of the Envelope Calculation means doing a quick, rough calculation to get an estimate of a value or answer to a problem. It is often used in situations where you don't have all the information or resources to do a more detailed analysis, but you still want to get a general idea of the answer.
+
+For example, if you want to estimate how long it will take to drive from one city to another, you might do a back of the envelope calculation by estimating the distance between the two cities and dividing it by your average speed. This can give you a rough estimate of the travel time without needing to look up specific routes or traffic conditions.
+
+Tutorials:
+https://www.youtube.com/watch?v=UC5xf8FbdJc
+https://www.youtube.com/watch?v=DwqTon7ZS_s
+
+
+10 Power	Approximate 	Full name	  Short name
+10^3	    1 Thousand	    1 Kilobyte	    1 KB
+10^6	    1 Million	    1 Megabyte	    1 MB
+10^9	    1 Billion	    1 Gigabyte	    1 GB
+10^12	    1 Trillion	    1 Terabyte	    1 TB
+10^15	    1 Quadrillion	1 Petabyte	    1 PB
+
+
+Latency numbers every programmer should know
+Dr. Dean from Google reveals the length of typical computer operations in 2010 [1]. Some numbers are outdated as computers become faster and more powerful. However, those numbers should still be able to give us an idea of the fastness and slowness of different computer operations.
+
+Operation name	                                Time
+L1 cache reference	                            0.5 ns
+Branch mispredict	                            5 ns
+L2 cache reference	                            7 ns
+Mutex lock/unlock	                            100 ns
+Main memory reference	                        100 ns
+Compress 1K bytes with Zippy	                10 µs
+Send 2K bytes over 1 Gbps network	            20 µs
+Read 1 MB sequentially from memory	            250 µs
+Round trip within the same datacenter	        500 µs
+Disk seek	                                    10 ms
+Read 1 MB sequentially from the network	        10 ms
+Read 1 MB sequentially from disk	            30 ms
+Send packet CA (California) ->Netherlands->CA	150 ms
+
+
+we get the following conclusions:
+
+- Memory is fast but disk access is slow.
+- Avoid disk seeks if possible.
+- Simple compression algorithms are fast.
+- Compress data before sending it over the internet when possible.
+- Data centers are often in different regions, so cross-region communication adds latency.
+
+
+Example: Estimate Twitter QPS and storage requirements
+Please note the following numbers are for this exercise only as they are not real numbers from Twitter.
+
+Assumptions:
+
+- 300 million monthly active users
+- 50% of users use Twitter daily
+- Users post 2 tweets per day on average
+- 10% of tweets contain media
+- Data is stored for 5 years
+
+Estimations:
+
+Query per second (QPS) estimate:
+
+- Daily active users (DAU) = 300 million * 50% = 150 million
+- Tweets QPS = 150 million * 2 tweets / 24 hour / 3600 seconds = ~3500
+- Peak QPS = 2 * QPS = ~7000
+
+We will only estimate media storage here.
+
+- media size = 1 MB
+- Media storage = 150 million * 2 * 10% * 1 MB = 30 TB per day
+- 5-year media storage = 30 TB * 365 * 5 = ~55 PB
