@@ -1,0 +1,110 @@
+# What is ERP?
+
+**ERP (Enterprise Resource Planning)** is software that integrates all core business processes into one system.
+
+> Think of it as a central control for a company.
+
+## Why is ERP Important?
+
+ERP helps businesses manage and automate their processes for efficiency and better decision-making.
+
+### Common ERP Modules
+
+- Finance & Accounting
+- HRM (Human Resource Management)
+- Inventory
+- Sales & Purchase
+- Payroll
+
+**Popular ERP Systems:** SAP, Oracle ERP, Microsoft Dynamics, Odoo
+
+
+📊 What is CRM?
+CRM (Customer Relationship Management) is software that helps businesses manage interactions with customers.
+
+📘 Core Accounting Concepts (Very Important for ERP)
+1. Journal (Journal Entry)
+A Journal is the first place where transactions are recorded.
+👉 Every transaction has:
+Debit (Dr)
+Credit (Cr)
+
+👉 In ERP:
+Each transaction creates a journal entry automatically
+
+2. Ledger
+A Ledger is a collection of accounts that shows the financial transactions of a company.
+👉 In ERP:
+Each account in the ledger is updated automatically with the journal entries.
+
+💡 Think:
+
+Journal = chronological record
+Ledger = categorized record
+
+3. Chart of Accounts (COA)
+
+A structured list of all accounts in a company.
+
+👉 Examples:
+
+Inventory
+Sales Revenue
+
+4. Debit & Credit (Golden Rule)
+
+The Golden Rule of Accounting:
+- Debit what comes in
+- Credit what goes out  
+👉 In ERP:
+When you buy inventory, you debit Inventory and credit Cash.
+When you make a sale, you debit Cash and credit Sales Revenue.
+
+
+5. Trial Balance
+
+A report that checks:
+👉 Total Debit = Total Credit
+
+If not equal → error exists.
+
+👉 In ERP:
+
+Used for validation before reports are generated.
+
+
+6. Balance Sheet
+
+Shows company’s financial position:
+
+👉 Formula:
+Assets = Liabilities + Equity
+
+7. Income Statement (Profit & Loss)
+Shows company’s performance over a period:
+👉 Formula:
+Revenue - Expenses = Net Income
+
+8. Accounts Payable (AP)
+
+Money the company owes to suppliers
+
+👉 Example:
+
+You bought goods but haven’t paid yet
+
+9. Accounts Receivable (AR)
+Money the company is owed by customers
+👉 Example:
+You made a sale but haven’t received payment yet
+
+10. Inventory Management
+Tracking and managing stock levels, orders, sales, and deliveries.
+👉 In ERP:
+Automatically updates inventory levels with each transaction.
+
+11. Payroll
+Managing employee compensation, benefits, and taxes.
+👉 In ERP:
+Automates salary calculations, tax deductions, and payslips.
+

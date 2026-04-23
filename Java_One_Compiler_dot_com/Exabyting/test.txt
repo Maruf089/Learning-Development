@@ -1,0 +1,21 @@
+Thank you for your interest in this position at Exabyting. We’re excited to invite you to demonstrate your skills through a TestGorilla assessment. This is your opportunity to shine and showcase your abilities beyond what’s on your resume.
+
+Duration: 17 mins maximum
+
+Interview questions for a Java Developer hiring assessment:
+
+1. Describe your experience with Java and the versions you have used in production.
+2. Explain the differences between Java 8, Java 11, and Java 17, and why choosing a specific version matters.
+3. What are the main principles of object-oriented programming, and how do they apply in Java?
+4. How do you manage memory in Java, and what is the role of garbage collection?
+5. Can you explain the difference between checked and unchecked exceptions, and when to use each?
+6. What is the Java Stream API, and how have you used it to process collections?
+7. How do you implement concurrency in Java, and what are the key differences between threads and executors?
+8. Describe how Java handles synchronization and how to avoid deadlocks.
+9. What is dependency injection, and how have you used frameworks like Spring in Java projects?
+10. Explain the SOLID principles and how they influence Java application design.
+11. How do you structure unit tests in Java, and which testing frameworks have you used?
+12. Describe a challenging bug you fixed in a Java application and how you diagnosed it.
+13. What techniques do you use to optimize Java application performance?
+14. How do you approach building RESTful APIs in Java, and what frameworks or libraries do you prefer?
+15. Describe your experience with version control, CI/CD, and collaborating in a development team.
