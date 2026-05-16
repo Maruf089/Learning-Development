@@ -1,0 +1,87 @@
+
+Good Article:
+https://www.naukri.com/code360/library/implement-jwt-authentication-in-a-spring-boot
+
+JWT (JSON Web Token) is a compact, URL-safe means of representing claims to be transferred between two parties. It is commonly used for authentication and authorization in web applications.
+
+When to use JWT:
+- When you need a stateless authentication mechanism
+
+A JSON Web Token (JWT) is a small, encoded string that carries a user’s identity and permissions in a way that any service can verify without contacting a central database.
+
+A JWT is made up of three parts, separated by dots:
+1. Header: Contains metadata about the token, such as the signing algorithm used.
+2. Payload: Contains the claims, which are pieces of information about the user and their permissions.
+3. Signature: A cryptographic signature that ensures the token hasn’t been tampered with.
+
+The server signs the encoded header and payload using a secret (HMAC) or private key (RSA/ECDSA).
+When a service verifies the token, it recomputes the signature; if it matches, the token is valid and untampered.
+
+Advantages of JWT:
+- Stateless: No need to store session information on the server.
+- Scalable: Can be easily used across multiple services without central session storage.
+- Flexible: Can include custom claims to carry additional information about the user.
+Disadvantages of JWT:
+- If not implemented securely, it can be vulnerable to attacks (e.g., token theft).
+- Tokens can become large if they include too much information, which can impact performance.
+- Browser Cookie Limit (4 KB): If you store your JWT in a cookie, the maximum size is strictly 4 KB.
+
+Example of a JWT payload: 
+```json
+{
+  "sub": "1234567890",
+  "name": "John Doe",
+  "admin": true,
+  "iat": 1516239022
+}
+```
+
+
+how to handle logout using jwt:
+
+Since JWTs are stateless, there’s no built-in way to invalidate a token before its expiration. To handle logout, you can implement one of the following strategies: 
+
+1. Client-Side Deletion (Basic)
+The simplest way to log out is to have the client-side application destroy its copy of the token.
+Action: Remove the JWT from localStorage, sessionStorage, or clear the HttpOnly cookie.
+Pro: Zero server-side overhead or complexity.
+Con: The token remains technically valid until it expires. If stolen before logout, it can still be used by an attacker.
+
+2. Server-Side Denylist (Secure)
+To immediately invalidate a token before its natural expiration, you can maintain a "denylist" (blacklist).
+Process:
+On logout, send the JWT's unique identifier (jti claim) to the server.
+Store that ID in a fast, in-memory store like Redis.
+Set the Redis entry to expire at the same time as the JWT.
+Validation: Every protected API call must check if the incoming token ID is in the denylist.
+Impact: Adds a small amount of statefulness but ensures immediate invalidation.
+
+
+3. Short-Lived Tokens + Refresh Tokens (Recommended)
+This is the industry standard for balancing security and performance.
+Access Token: Very short lifespan (e.g., 15 minutes). Used for API calls.
+Refresh Token: Long lifespan (e.g., 7 days). Stored securely (usually an HttpOnly cookie).
+Logout:
+The client deletes both tokens.
+The server invalidates the Refresh Token in the database.
+Result: Even if the short-lived access token isn't "blacklisted," it will expire on its own very quickly, and the user cannot get a new one.
+Example of a JWT with a jti claim:
+```json
+{
+  "sub": "1234567890",
+  "name": "John Doe",
+  "admin": true,
+  "iat": 1516239022,
+  "jti": "unique-token-id-12345"
+}```
+
+4. Versioning
+If you need to log a user out of all devices simultaneously.
+Maintain a "token version" field in the user’s database record.
+Include the token version in the JWT payload.
+On logout, increment the token version in the database.
+Validation: When validating the JWT, check that the token version in the payload matches the current version in the database. If not, reject the token.
+Pro: Simple to implement and effective for global logout.
+Con: Requires a database lookup on every request, which can impact performance.
+
+

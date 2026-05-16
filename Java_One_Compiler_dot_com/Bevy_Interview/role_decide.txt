@@ -1,15 +1,32 @@
-15. You are tasked with securing certain endpoints in a Spring Boot application so that only users with specific roles can access them. Users authenticate via tokens that include their roles as claims. How would you configure your application to ensure that access to these endpoints is restricted based on user roles, and that the role checks are applied to method-level security in your controllers or services?
+15. You are tasked with securing certain endpoints in a Spring Boot 
+application so that only users with specific roles can access them.
+ Users authenticate via tokens that include their roles as claims. 
+ How would you configure your application to ensure that access to 
+ these endpoints is restricted based on user roles, and that the 
+ role checks are applied to method-level security in your controllers 
+ or services?
 
-This scenario tests your understanding of Authentication, Authorization, JWT, PreAuthorize annotation in Spring boot.
+This scenario tests your understanding of Authentication, 
+Authorization, JWT, PreAuthorize annotation in Spring boot.
 
-Authentication is the process of verifying the identity of a user or system. It checks whether the credentials provided (like username and password) are valid.
+Authentication is the process of verifying the identity of a 
+user or system. It checks whether the credentials 
+provided (like username and password) are valid.
 
 
-Spring handles authentication using various methods like in-memory authentication, database authentication, or third-party providers (e.g., OAuth2, LDAP). Upon successful authentication, a Authentication object is created, representing the authenticated user.
+Spring handles authentication using various methods 
+like in-memory authentication, database authentication, 
+or third-party providers (e.g., OAuth2, LDAP). 
+Upon successful authentication, a Authentication object is created,
+ representing the authenticated user.
 
-Authorization determines what an authenticated user is allowed to do—i.e., which resources or actions they can access based on their roles or permissions.
+Authorization determines what an authenticated user is 
+allowed to do—i.e., which resources or actions they can 
+access based on their roles or permissions.
 
-Authorization is managed using roles or authorities. Spring Security evaluates these roles/authorities to grant or deny access to specific endpoints or functionalities.
+Authorization is managed using roles or authorities. 
+Spring Security evaluates these roles/authorities to 
+grant or deny access to specific endpoints or functionalities.
 
 @RestController
 @RequestMapping("/api")
@@ -36,7 +53,12 @@ Quick checklist (what you need to do)
 ✅ @PreAuthorize("hasRole(...)") works automatically
 
 
-16. What are differences between @Secured and @PreAuthorize annotations in Spring Security?
+16. What are differences between @Secured and @PreAuthorize annotations 
+in Spring Security?
 
-@PreAuthorize is the newer and better choice over @Secured because it supports expression-based access control. With @PreAuthorize, you can use expressions like hasRole, hasAnyRole, permitAll, and more, providing greater flexibility in defining security rules.
+@PreAuthorize is the newer and better choice over @Secured 
+because it supports expression-based access control. 
+With @PreAuthorize, you can use expressions like hasRole, 
+hasAnyRole, permitAll, and more, providing greater 
+flexibility in defining security rules.
 

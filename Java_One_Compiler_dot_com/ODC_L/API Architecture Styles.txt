@@ -1,0 +1,182 @@
+```java
+
+Great Blog Post: API Architecture Styles
+https://blog.levelupcoding.com/p/api-architecture-styles
+
+Most API pain doesn’t come from bad code.
+
+It comes from choosing an API style that doesn’t fit the problem.
+
+REST starts to feel slow when every screen needs five endpoints. GraphQL becomes heavy when all you wanted was simple CRUD. gRPC ties clients too tightly when the real consumers are browsers. WebSockets add complexity for features that barely need real-time updates.
+
+In this post, we’ll look at the most common API architecture styles and when to use them.
+
+1. REST (Representational State Transfer)
+REST is the most popular API style. It uses HTTP methods (GET, POST, PUT, DELETE) to perform operations on resources (e.g., users, products). 
+REST is stateless and relies on standard HTTP status codes for responses.
+
+You expose URLs, apply HTTP verbs, and let the web do the heavy lifting.
+
+When to use REST:
+- When you have a simple CRUD application.
+
+REST performs best when clients want whole resources rather than tailor-made responses.
+
+Disadvantages of REST:
+- Over-fetching: Clients may receive more data than they need.
+- Under-fetching: Clients may need to make multiple requests to get all the data they need.
+
+
+
+2. GraphQL
+GraphQL is a query language for APIs that allows clients to request exactly the data they need. It uses a single endpoint and supports real-time updates with subscriptions.
+
+GraphQL lets the client define the shape of the data it wants.
+
+One query pulls from multiple related objects, which makes dashboards and complex pages faster and easier to build.
+
+QueryMapping
+QueryMutationMapping
+QuerySubscriptionMapping
+
+You must govern the schema and control resolver behavior.
+
+🛠️ Governing the Schema
+Governing the schema means designing it to prevent "infinite loops".
+( user -> friends -> friends -> ...)
+
+🛡️ Controlling Resolver Behavior
+Resolvers are the functions that fetch data for each field in the GraphQL schema. Controlling resolver behavior means implementing logic to prevent performance issues, such as N+1 query problems, where a resolver makes multiple database calls for related data.
+
+When to use GraphQL:
+- When you have complex relationships between data and want to avoid over-fetching or under-fetching.
+
+
+Disadvantages of GraphQL:
+- Can be more complex to set up and maintain than REST.
+- Complex queries can lead to performance issues if N+1 problems occur.
+or Poor resolver design can lead to N+1 performance issues.
+
+3. gRPC
+gRPC is a high-performance RPC framework that uses Protocol Buffers for serialization. It is designed for low-latency communication.
+- Uses HTTP/2 for faster and more efficient communication.
+
+You define your data and API methods in a .proto file. gRPC turns that file into ready-made clients and servers code, letting you call functions directly without building any HTTP logic yourself.
+
+When to use gRPC:
+- When you need high performance and low latency, especially for microservices communication.
+
+Disadvantages of gRPC:
+- Can be more complex to set up and maintain than REST.
+- Limited browser support, as it relies on HTTP/2.
+- Not ideal for public APIs, especially web browsers.
+
+4. WebSockets
+WebSockets provide a full-duplex communication channel over a single TCP connection. They are ideal for real-time applications like chat apps or live updates.
+
+When to use WebSockets: 
+- When you need real-time communication between the client and server.
+
+Disadvantages of WebSockets:
+- Can be more complex to set up and maintain than REST.
+- Not suitable for all types of applications, especially those that don’t require real-time updates.
+
+
+5. Server-Sent Events (SSE)
+SSE allows servers to push updates to clients over a single HTTP connection. It is ideal for applications that need real-time updates but do not require full-duplex communication.
+
+When to use SSE:
+- real time notifications or updates from the server to the client.
+
+6. SOAP (Simple Object Access Protocol)
+SOAP is a protocol for exchanging structured information in web services. It uses XML for message format.
+When to use SOAP:
+- When you need a standardized protocol for web services
+Disadvantages of SOAP:
+- Not as widely used for modern web APIs, which may limit client support.
+
+
+## Feign Client
+Feign is a Java library that simplifies HTTP API clients. It allows you to define a Java interface and annotate it to specify how to call the API. Feign handles the HTTP communication, making it easier to integrate with RESTful services.
+
+Example of a Feign Client interface:
+```java
+@FeignClient(name = "inventory-service")
+public interface InventoryClient {
+    @GetMapping("/inventory/{id}")
+    Inventory getInventoryById(@PathVariable("id") Long id);
+}
+
+When to use Feign Client: 
+- interface-based clients
+
+- When you want to simplify the process of calling RESTful APIs from Java applications.
+Disadvantages of Feign Client:
+- It is specific to Java and may not be suitable for applications written in other languages.
+- It may not be the best choice for high-performance applications, as it adds an additional layer of abstraction over HTTP communication.
+
+
+## Web Client
+WebClient is a non-blocking, reactive HTTP client in Spring Framework. It allows you to make asynchronous HTTP requests and handle responses in a reactive programming style.
+Example of using WebClient:
+```java
+WebClient webClient = WebClient.create("http://inventory-service");
+Mono<Inventory> inventoryMono = webClient.get()
+    .uri("/inventory/{id}", id)
+    .retrieve()
+    .bodyToMono(Inventory.class);
+
+When to use WebClient:
+- When you want to make asynchronous HTTP requests in a reactive programming style.
+- When you need to handle a large number of concurrent requests efficiently.
+
+Disadvantages of WebClient:
+- It may have a steeper learning curve for developers who are not familiar with reactive programming.
+- It may not be the best choice for simple applications that do not require asynchronous processing.
+
+
+Choose WebSocket when
+Real-time two-way communication is needed
+Typical choice for - Chat , Live alerts
+
+Choose gRPC when
+High performance and low latency are required, especially for microservices
+communication
+Typical choice for - Internal microservices communication
+
+Choose GraphQL when
+Complex relationships between data exist and you want to avoid over-fetching or under-fetching
+Typical choice for - Dashboards, complex pages with multiple related objects
+
+Choose REST when
+You have a simple CRUD application and clients want whole resources rather than tailor-made responses
+Typical choice for - Simple CRUD applications, public APIs
+
+Choose SOAP when
+You need a standardized protocol for web services specially in XML format
+Typical choice for - Legacy enterprise integration
+
+
+Very practical rule of thumb
+- Default choice: REST
+- Frontend needs flexible data: GraphQL
+- Fast internal service-to-service calls: gRPC
+- Legacy enterprise integration: SOAP
+- Real-time updates: WebSocket
+- Async/event processing: Kafka/RabbitMQ/SQS
+- Spring REST client: Feign or WebClient
+
+
+
+Synchronous API : REST, GraphQL, gRPC
+
+When to use synchronous APIs:
+- When you need immediate responses and the client can wait for the server to process the request.
+- When the operations are simple and do not require real-time updates.
+
+Asynchronous API : WebSockets
+
+When to use asynchronous APIs:
+- When you need real-time communication between the client and server.
+- When the application involves live updates or notifications.
+

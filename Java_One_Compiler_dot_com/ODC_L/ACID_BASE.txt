@@ -1,0 +1,20 @@
+ACID vs BASE: How to Choose Your Consistency Model
+
+ACID (Atomicity, Consistency, Isolation, Durability) and BASE (Basically Available, Soft state, Eventual consistency) are two different consistency models used in database systems.
+
+When to Use ACID
+- When you need strong consistency guarantees and cannot tolerate stale data - bank transfers, inventory management.
+- When you need to ensure that all operations in a transaction either succeed or fail together - e-commerce checkout.
+- When you need to prevent concurrent transactions from interfering with each other - booking systems.
+
+When to Use BASE
+- When you need high availability and can tolerate eventual consistency - social media feeds, product catalogs.
+- When you have write-heavy, append-only workloads - log ingestion, analytics.
+- When slightly stale reads are acceptable - dashboards, reporting.
+
+When Not to Use ACID
+- When you need high availability and can tolerate eventual consistency.
+- You mostly need write-heavy, append-only workloads → Log ingestion
+- Slightly stale reads are fine → For feeds, analytics, strict freshness is overkill.
+
+

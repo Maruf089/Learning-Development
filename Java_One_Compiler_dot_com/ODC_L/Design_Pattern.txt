@@ -1,0 +1,11 @@
+🔥 BONUS: Quick One-Liners (Rapid Fire)
+Singleton: One instance globally
+Factory: Object creation logic hidden
+Builder: Step-by-step object creation
+Strategy: Replace if-else with algorithms
+Observer: Notify multiple listeners
+Adapter: Convert interface
+Decorator: Add behavior dynamically
+Proxy: Control access
+MVC: Separate concerns
+

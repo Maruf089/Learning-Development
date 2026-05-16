@@ -1,0 +1,30 @@
+Synchronous communication means sending a request and waiting for a reply 
+before continuing.
+
+When to use synchronous communication
+Simple interactions - When the request is quick and the response is needed immediately.
+Low traffic - When the number of requests is manageable and won't overwhelm the server.
+
+When not to use synchronous communication
+Long-running work - Requests time out and users get frustrated. 
+High traffic - Threads get blocked waiting for replies. Server resources get exhausted.
+Unreliable services - If the service you depend on is down, your service is also down
+
+Asynchronous communication means sending a request and continuing without waiting 
+for a reply. The reply can be handled later when it arrives.
+When to use asynchronous communication
+Long-running work - Offload work to background threads or services. Users get faster responses.
+High traffic - Threads aren't blocked waiting for replies. Server can handle more requests.
+
+When not to use asynchronous communication
+Simple interactions - Adds unnecessary complexity when the request is quick and response is needed immediately.
+Critical operations - If the operation must succeed before proceeding.
+
+
+
+Most mature architectures follow a simple pattern:
+
+Sync at the edge → confirm the user’s action quickly and clearly.
+
+Async behind the edge → process side effects like notifications, analytics, and downstream updates without holding the request open.
+
