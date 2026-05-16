@@ -1,0 +1,63 @@
+Java initializes member data variable to default values (numeric values are initialized as 0, booleans are initialized as false and references are initialized as null). 
+
+Local variables are not initialized by default and must be assigned a value before they can be used.
+
+A protected member is accessible in all classes of the same package and in inherited classes of other packages.
+A private member is accessible only within the class in which it is declared.
+
+Non-static methods cannot be called in a static method without creating an object.
+
+Static local variables are not allowed in Java.
+
+If we write our own parameterized constructor then Java compiler doesn't create the default constructor.
+
+the order of initialization of local variables comes first then the constructor.
+
+foo() is protected in Base and default in Derived. Default access is more restrictive. When a derived class overrides a base class function, more restrictive access can’t be given to the overridden function.
+// file name: Main.java 
+  class Base { 
+    protected void foo() {} 
+}  
+class Derived extends Base { 
+    void foo() {} 
+}  
+
+Automatic Type Promotion in Overloading in Java
+When a method is overloaded, Java automatically promotes the smaller data type to the larger data type. 
+
+byte -> short -> int -> long -> float -> double
+char -> int -> long -> float -> double
+
+String s1 = "abc";
+String s2 = s1;
+        s1 += "d";
+        System.out.println(s1); // abcd
+        System.out.println(s2); // abc
+In the above code, s1 and s2 are references to the same string "abc". When we concatenate "d" to s1, it creates a new string "abcd" and assigns it to s1. However, s2 still references the original string "abc". Therefore, when we print s1, it outputs "abcd", and when we print s2, it outputs "abc".
+
+StringBuffer sb1 = new StringBuffer("abc");
+StringBuffer sb2 = sb1;
+        sb1.append("d");
+        System.out.println(sb1); // abcd
+        System.out.println(sb2); // abcd  
+In the above code, sb1 and sb2 are references to the same StringBuffer object. When we append "d" to sb1, it modifies the original StringBuffer object that both sb1 and sb2 reference. Therefore, when we print sb1, it outputs "abcd", and when we print sb2, it also outputs "abcd".
+
+Static methods cannot be overridden, only hidden.
+
+Only start() creates a new thread; run() behaves like a normal method call.
+
+Static blocks execute once when the class is loaded, before main().
+Multiple static blocks execute in top-to-bottom order.
+
+this can’t be used inside static methods.
+
+finalize() method is called by Garbage Collector on an object before destroying it.
+When Garbage Collector calls finalize() method on an object, it ignores all the exceptions raised in the method.
+
+we have to clear about one fact about Garbage Collector i.e. it will call finalize() method on a particular object exactly one time.
+
+A non-static variable can not be accessed in static nested inner class. "Nested" cannot access non-static variables/variable's.
+
+Constructors cannot be enclosed in try/catch block. 
+
+
