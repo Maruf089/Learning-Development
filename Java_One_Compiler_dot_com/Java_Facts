@@ -60,4 +60,10 @@ A non-static variable can not be accessed in static nested inner class. "Nested"
 
 Constructors cannot be enclosed in try/catch block. 
 
+In interface, Private methods are not visible outside interface, used for code reuse inside default/static methods.
+
+Primitive data types cannot be assigned null values.
+
+Final and static methods cannot be overridden.
+
 
